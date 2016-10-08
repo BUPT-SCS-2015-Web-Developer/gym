@@ -1,0 +1,28 @@
+
+@font-face {
+    font-family: 'MFYueHei';
+    src: url('MFYueHei.woff2') format('woff2'),
+         url('MFYueHei.woff') format('woff'),
+         url('MFYueHei.otf') format('otf');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+* {
+    font-family:"MFYueHei","Microsoft YaHei","Microsoft Yahei","微软雅黑",微软雅黑,"SimHei","Simhei","黑体",黑体,arial;
+}
+.logo {
+    position:relative;
+    left:-2px;
+    top:9px;
+    height:40px;
+    width:40px;
+}
+
+#user {
+    position:relative;
+    top:9px;
+    height:40px;
+    width:40px;
+}
