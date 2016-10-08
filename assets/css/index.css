@@ -17,3 +17,54 @@
     height:40px;
     width:40px;
 }
+
+.collapsible-header {
+    font-size:21px;
+    line-height:60px;
+}
+
+.timeBox {
+    font-family:roboto,"Microsoft YaHei","Microsoft Yahei","微软雅黑",微软雅黑,"SimHei","Simhei","黑体",黑体,arial;
+    height:30px;
+    display:block;
+    position:relative;
+    border-radius:4px;
+    background-color:rgb(240,240,240);
+    margin:6px;
+    margin-left:8px;
+    margin-right:8px;
+    padding:3px;
+    transition: background-color 2s;
+    -moz-transition: background-color 2s; /* Firefox 4 */
+    -webkit-transition: background-color 2s; /* Safari 和 Chrome */
+    -o-transition: background-color 2s; /* Opera */
+}
+.timeBox:hover {
+    background-color:rgb(150,150,150);
+    
+}
+.timeList p{
+    padding:2px;
+}
+
+.leftBox {
+    position:absolute;
+    top:5px;
+    left:28px;
+}
+
+.colorBox {
+    border-radius:3px;
+    height:20px;
+    width:20px;
+    position:absolute;
+    top:5px;
+    left:4px
+}
+
+.rightBox {
+    
+    position:absolute;
+    top:5px;
+    right:5px;
+}
