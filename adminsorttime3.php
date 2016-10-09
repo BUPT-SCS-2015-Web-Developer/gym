@@ -59,6 +59,7 @@
 	$num_result = mysqli_num_rows($result);
 	for ($i=0;$i<$num_result;$i++) {
 		$row = mysqli_fetch_row($result);
+		if ($row[5]=='20:00-21:00'){
 		?>          
 					<tr>
                         <td><?php echo $row[1]?></td>
@@ -70,6 +71,7 @@
                     </tr>
 					
 		<?php
+		}
 	}
 ?>  
                 </tbody>
