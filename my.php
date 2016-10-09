@@ -20,13 +20,13 @@
  <body> 
   <nav class="light-blue lighten-1" role="navigation"> 
    <div class="nav-wrapper container hide-on-med-and-down"> 
-    <a href="index.php" class="brand-logo"> <img class="logo circle" src="assets/img/logo.png" />健身房预约</a> 
+    <a href="#" class="brand-logo"> <img class="logo circle" src="assets/img/logo.png" />健身房预约</a> 
     <ul class="right"> 
      <li><a href="my.php">个人中心</a></li> 
     </ul> 
    </div> 
    <div class="nav-wrapper hide-on-large-only"> 
-    <a href="index.php" class="brand-logo"> <img class="logo circle" src="assets/img/logo.png" />健身房预约</a> 
+    <a href="#" class="brand-logo"> <img class="logo circle" src="assets/img/logo.png" />健身房预约</a> 
     <ul class="left"> 
      <li><a href="my.php"><img id="user" class="circle" src="assets/img/user.png" /></a></li> 
     </ul> 
