@@ -51,8 +51,8 @@
           <p>时间 : <span id="show_time"></span></p>
       </div>
       <form id="form" method="post" action="">
-          <input value="预填充姓名(接口)" id="name" type="hidden" name="name">
-          <input id="id" value="预填充学号(接口)" type="hidden" name="id">
+          <input value="刘子锐" id="name" type="hidden" name="name">
+          <input id="id" value="2015212149" type="hidden" name="id">
           <input id="date" type="hidden" name="date">
           <input id="time" type="hidden" name="time">
       </form>
