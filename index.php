@@ -36,13 +36,13 @@
    <!-- 公告开始 -->
    <!-- 公告模板 php处理
       <div id="notice1">
-          <div class="card red accent-1">
+          <div class="card grey lighten-5">
             <div class="card-content grey-text text-darken-4">
               <span class="card-title">公告标题</span>
               <p>公告内容</p>
             </div>
             <div class="card-action">
-              <a href="#">我知道了</a>
+              <a class="known" href="#">我知道了</a>
             </div>
           </div>
       </div>
@@ -73,7 +73,7 @@
       <!-- collapsible-header和colorBox的class分别为 red lighten-3 满人 yellow darken-2 超过10人 teal lighten-2 空闲 -->
       <!-- 对于满人的一天，class中不加active -->
       <div class="collapsible-header teal lighten-2 grey-text text-lighten-5 active">
-        10月11日(32/45 不满80% 为绿色)
+        10月11日 星期二(32/45 不满80% 为绿色)
       </div>
       <div id="20161011" class="collapsible-body">
        <!-- id为日期,yyyymmdd格式 -->
@@ -107,7 +107,7 @@
       </div> </li>
      <li>
       <div class="collapsible-header yellow darken-2 grey-text text-lighten-5 active">
-        10月12日(39/45 超过80% 为黄色)
+        10月12日 星期三(39/45 超过80% 为黄色)
       </div>
       <div id="20161011" class="collapsible-body">
        <div class="timeBox timeBox1">
@@ -140,7 +140,7 @@
       </div> </li>
      <li>
       <div class="collapsible-header red lighten-3 grey-text text-lighten-5">
-        10月13日(45/45 红色 且无active 即默认不显示)
+        10月13日 星期四(45/45 红色 且无active 即默认不显示)
       </div>
       <div id="20161011" class="collapsible-body">
        <div class="timeBox timeBox1">
