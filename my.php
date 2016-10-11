@@ -12,7 +12,7 @@
   <title>健身房预约 - 北邮易班</title> 
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" /> 
   <link href="assets/css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection" /> 
-  <link href="assets/css/index.css" type="text/css" rel="stylesheet" /> 
+  <link href="assets/css/my.css" type="text/css" rel="stylesheet" /> 
  </head> 
  <body> 
   <nav class="light-blue lighten-1" role="navigation"> 
@@ -46,16 +46,42 @@
     </div>
     <div id="test1" class="col s12">
         <!-- 已预约的健身计划 以下为范例-->
-        
-        <div 
+        <ul class="collection">
+            <li id="3" /*此处id即为用户预约表中的id */class="collection-item">
+                10月13日 19:00~20:00 <a class="right waves-effect waves-light btn btn-cancel">取消预约</a>
+            </li>
+            <li id="4" class="collection-item">
+                10月14日 20:00~21:00 <a class="right waves-effect waves-light btn btn-cancel">取消预约</a>
+            </li>
+    </ul>
+       
     </div>
     <div id="test2" class="col s12">
-        
+        <!-- 已完成的健身计划 以下为范例-->
+        <ul class="collection">
+            <li id="1" /*此处id即为用户预约表中的id */class="collection-item">
+                10月11日 19:00~20:00 
+            </li>
+            <li id="2" class="collection-item">
+                10月12日 20:00~21:00 
+            </li>
+    </ul>
     </div>
     <div id="test3" class="col s12">
-        
+        <!-- 按时提醒 -->
+
+        <label>开启按时提醒后，易班客户端将会在预约前提前通知您。</label>
+    <select class="browser-default" id="alarm">
+      <option value="-1" selected>不提醒</option>
+      <option value="5">提前5分钟</option>
+      <option value="10">提前10分钟</option>
+      <option value="15">提前15分钟</option>
+      <option value="30">提前30分钟</option>
+    </select>
+
     </div>
   </div>
+  <hr>
   </div> 
   <br /> 
   <br /> 
@@ -87,6 +113,6 @@
   <!--  Scripts--> 
   <script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script> 
   <script src="assets/js/materialize.js"></script> 
-  <script src="assets/js/index.js"></script>  
+  <script src="assets/js/my.js"></script>  
  </body>
 </html>

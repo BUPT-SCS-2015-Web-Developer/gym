@@ -38,16 +38,25 @@ $(function(){
             e_date = new RegExp("^[0-9]{8}$"),
             e_time = new RegExp("^[123]$");
         if (e_name.test($("#name").val().trim()) && e_id.test($("#id").val().trim()) && e_date.test($("#date").val().trim()) && e_time.test($("#time").val().trim())) {
-            var book_data = {};
-            book_data.name = $("#name").val().trim();
-            book_data.id = $("#id").val().trim();
-            book_data.date = $("#date").val().trim();
-            book_data.time = $("#time").val().trim();
+            var order_data = {};
+            //order_data.ybid 易班id部分 需后台session验证
+            order_data.name = $("#name").val().trim();
+            order_data.id = $("#id").val().trim();
+            order_data.date = $("#date").val().trim();
+            order_data.time = $("#time").val().trim();
             
-            $.post("book_new.php",book_data,function(data,status){
-                alert("Data: " + data + "\nStatus: " + status);
+            $.post("newOrder.php",order_data,function(data,status){
+                if (status == "success") {
+                    if (data == "1") Materialize.toast("修改成功!将在3秒后返回主页", 3000,'',function(){
+            window.location.href="index.php";
+        }););
+                    else if (data == "2") Materialize.toast("非法请求!", 5000);
+                    else if (data == "3") Materialize.toast("本时间段人数已满!", 5000);
+                    else if (data == "5") Materialize.toast("参数错误!请勿作死!", 5000);
+                    else Materialize.toast("服务器异常，请稍后再试!", 5000);
+                } else Materialize.toast("服务器异常，请稍后再试!", 5000);
             });
-            Materialize.toast('提交成功!将在3秒后返回主页!', 3000,'',function(){
+            Materialize.toast('提交成功!将在3秒后返回主页', 3000,'',function(){
             window.location.href="index.php";
         });
         } else {

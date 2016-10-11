@@ -6,7 +6,6 @@
 
 
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
  <head> 
@@ -35,20 +34,20 @@
   <div class="container"> 
    <!-- 公告开始 --> 
    <!-- 公告模板 php处理
-      <div id="notice1">
-          <div class="card red accent-1">
+      <div class="noticeBox" id="notice1">
+          <div class="card grey lighten-5">
             <div class="card-content grey-text text-darken-4">
               <span class="card-title">公告标题</span>
               <p>公告内容</p>
             </div>
-            <div class="card-action">
-              <a href="#">我知道了</a>
+            <div class="card-action grey-text text-darken-4">
+              <a class="known" href="#">我知道了</a>
             </div>
           </div>
       </div>
-      --> 
+   -->  
    <!-- 如果没有公告 显示这个 --> 
-   <div id="notice0"> 
+   <div class="notice" id="notice0"> 
     <div class="card grey lighten-5 "> 
      <div class="card-content grey-text text-darken-4"> 
       <span class="card-title">Harvest by labor, fitness by exercise.</span> 
@@ -72,102 +71,103 @@
      <li> 
       <!-- collapsible-header和colorBox的class分别为 red lighten-3 满人 yellow darken-2 超过10人 teal lighten-2 空闲 --> 
       <!-- 对于满人的一天，class中不加active --> 
+      <!-- 注意后台要有判断不显示的天，如国庆7天放假等 --> 
       <div class="collapsible-header teal lighten-2 grey-text text-lighten-5 active">
-        10月11日(32/45 不满80% 为绿色) 
+        10月11日 星期二(32/45 不满80% 为绿色) 
       </div> 
       <div id="20161011" class="collapsible-body"> 
        <!-- id为日期,yyyymmdd格式 --> 
        <div class="timeBox timeBox1"> 
         <div class="colorBox yellow darken-2"></div> 
         <div class="leftBox">
-         18:00~19:00
+          18:00~19:00 
         </div> 
         <div class="rightBox">
-         12/15
+          12/15 
         </div> 
        </div> 
        <div class="timeBox timeBox2"> 
         <div class="colorBox red lighten-3"></div> 
         <div class="leftBox">
-         19:00~20:00
+          19:00~20:00 
         </div> 
         <div class="rightBox">
-         15/15
+          15/15 
         </div> 
        </div> 
        <div class="timeBox timeBox3"> 
         <div class="colorBox teal lighten-2"></div> 
         <div class="leftBox">
-         20:00~21:00
+          20:00~21:00 
         </div> 
         <div class="rightBox">
-         5/15
+          5/15 
         </div> 
        </div> 
       </div> </li> 
      <li> 
       <div class="collapsible-header yellow darken-2 grey-text text-lighten-5 active">
-        10月12日(39/45 超过80% 为黄色) 
+        10月12日 星期三(39/45 超过80% 为黄色) 
       </div> 
       <div id="20161011" class="collapsible-body"> 
        <div class="timeBox timeBox1"> 
         <div class="colorBox yellow darken-2"></div> 
         <div class="leftBox">
-         18:00~19:00
+          18:00~19:00 
         </div> 
         <div class="rightBox">
-         14/15
+          14/15 
         </div> 
        </div> 
        <div class="timeBox timeBox2"> 
         <div class="colorBox red lighten-3"></div> 
         <div class="leftBox">
-         19:00~20:00
+          19:00~20:00 
         </div> 
         <div class="rightBox">
-         15/15
+          15/15 
         </div> 
        </div> 
        <div class="timeBox timeBox3"> 
         <div class="colorBox yellow darken-2"></div> 
         <div class="leftBox">
-         20:00~21:00
+          20:00~21:00 
         </div> 
         <div class="rightBox">
-         13/15
+          13/15 
         </div> 
        </div> 
       </div> </li> 
      <li> 
       <div class="collapsible-header red lighten-3 grey-text text-lighten-5">
-        10月13日(45/45 红色 且无active 即默认不显示) 
+        10月13日 星期四(45/45 红色 且无active 即默认不显示) 
       </div> 
       <div id="20161011" class="collapsible-body"> 
        <div class="timeBox timeBox1"> 
         <div class="colorBox red lighten-3"></div> 
         <div class="leftBox">
-         18:00~19:00
+          18:00~19:00 
         </div> 
         <div class="rightBox">
-         15/15
+          15/15 
         </div> 
        </div> 
        <div class="timeBox timeBox2"> 
         <div class="colorBox red lighten-3"></div> 
         <div class="leftBox">
-         19:00~20:00
+          19:00~20:00 
         </div> 
         <div class="rightBox">
-         15/15
+          15/15 
         </div> 
        </div> 
        <div class="timeBox timeBox3"> 
         <div class="colorBox red lighten-3"></div> 
         <div class="leftBox">
-         20:00~21:00
+          20:00~21:00 
         </div> 
         <div class="rightBox">
-         15/15
+          15/15 
         </div> 
        </div> 
       </div> </li> 

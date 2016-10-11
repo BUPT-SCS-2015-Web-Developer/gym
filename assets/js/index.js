@@ -12,5 +12,8 @@ $(function(){
         var string = "new.php?time="+time+"&date="+date;
         window.location.href = string;
         
-    })
+    });
+    $('.known').click(function() {
+       $(this).parents(".noticeBox").hide(1000);
+    });
 }); 
