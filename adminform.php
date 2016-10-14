@@ -1,8 +1,8 @@
 <?php
 
-	$con = mysqli_connect('localhost', 'root', 'jmy5zhentan5') or die ("不能连接数据库:");
-	mysqli_select_db($con,'SportReservation');
-	
+//	$con = mysqli_connect('localhost', 'root', 'jmy5zhentan5') or die ("不能连接数据库:");
+//	mysqli_select_db($con,'SportReservation');
+
 ?>
 
 <!DOCTYPE html>
@@ -59,7 +59,7 @@
 	$num_result = mysqli_num_rows($result);
 	for ($i=0;$i<$num_result;$i++) {
 		$row = mysqli_fetch_row($result);
-		?>          
+		?>
 					<tr>
                         <td><?php echo $row[1]?></td>
                         <td><?php echo $row[2]?></td>
@@ -68,10 +68,10 @@
 						<td><?php echo $row[5]?></td>
 						<td><a class="waves-effect waves-teal btn-flat" href="#">已赴约</a><a class="waves-effect waves-teal btn-flat" href="#">未赴约</a></td>
                     </tr>
-					
+
 		<?php
 	}
-?>  
+?>
                 </tbody>
              </table>
 		</div>
