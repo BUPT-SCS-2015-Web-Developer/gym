@@ -1,6 +1,10 @@
 <?php
-    $showingDay = 5; //可以提前预定/列表显示的天数
-    $peopleLimit = 15; //每个时间段人数上限
+    session_start();
+    //    include "assets/API/header_api_session.php";
+    //    include "assets/API/iapp.php";
+    include "assets/API/config.php";
+    include "assets/API/db_config.php";
+
     $date = array();
     $id = array();
 
@@ -31,11 +35,6 @@
         $id[$i] = date("Ymd",strtotime("+".$i." day"));
     }
 
-    session_start();
-//    include "assets/API/header_api_session.php";
-//    include "assets/API/iapp.php";
-//    include "assets/API/config.php";
-    include "assets/API/db_config.php";
     $db = new mysqli($db_host,$db_user,$db_password,$db_database);
     if (!$db)
     {
