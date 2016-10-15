@@ -21,18 +21,12 @@
     }
     else
     {
-        $date[0] = date("m月d日");
-        $date[1] = date("m月d日",strtotime('+1 day'));
-        $date[2] = date("m月d日",strtotime('+2 day'));
-        $date[3] = date("m月d日",strtotime('+3 day'));
-        $date[4] = date("m月d日",strtotime('+4 day'));
-        $date[5] = date("m月d日",strtotime('+5 day'));
-        $date[6] = date("m月d日",strtotime('+6 day'));
+        ;
     }
-    for ($i=$flag;$i<$showingDay+$flag;$i++)
+    for ($i=0;$i<$showingDay;$i++)
     {
-        $date[$i] = date("m月d日",strtotime("+".$i." day"));
-        $id[$i] = date("Ymd",strtotime("+".$i." day"));
+        $date[$i] = date("m月d日",strtotime("+".($i+$flag)." day"));
+        $id[$i] = date("Ymd",strtotime("+".($i+$flag)." day"));
     }
 
     $db = new mysqli($db_host,$db_user,$db_password,$db_database);

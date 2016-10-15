@@ -2,8 +2,10 @@
     session_start();
     //    include "assets/API/header_api_session.php";
     //    include "assets/API/iapp.php";
-    //    include "assets/API/config.php";
+    include "assets/API/config.php";
     include "assets/API/db_config.php";
+
+    $yibanID = "yibanID";
 
     date_default_timezone_set('Asia/Shanghai');
     $nowTimeShow = date("Y年m月d日 H:i");
@@ -14,7 +16,7 @@
       exit('Could not connect: ' . mysql_error());
     }
     $db->query("set names 'utf8'");
-    $
+
 ?>
 
 <!DOCTYPE html>
@@ -60,25 +62,75 @@
     <div id="test1" class="col s12">
         <!-- 已预约的健身计划 以下为范例-->
         <ul class="collection">
-            <li id="3" /*此处id即为用户预约表中的id */class="collection-item">
-                10月13日 19:00~20:00 <a class="right waves-effect waves-light btn btn-cancel">取消预约</a>
-            </li>
-            <li id="4" class="collection-item">
-                10月14日 20:00~21:00 <a class="right waves-effect waves-light btn btn-cancel">取消预约</a>
-            </li>
-    </ul>
+          <?php
+            $sql_query = "SELECT * FROM `gym_reserve` WHERE yibanID ='". $yibanID."'";
+            $result = $db->query($sql_query);
+            $i=0;
+            if ($result->num_rows == 0)
+            {
+              ;
+            }
+            else {
+              foreach ($result as $value) {
+                if ($value['time'] == 1)
+                {
+                  $time = "18:00-19:00";
+                }
+                elseif ($value['time'] == 2) {
+                  $time = "19:00-20:00";
+                }
+                elseif ($value['time'] == 3)
+                {
+                  $time = "20:00-21:00";
+                }
+                echo "<li id='".$value['id']."' class='collection-item'>
+                    ".$value['date']." ".$time."<a class='right waves-effect waves-light btn btn-cancel'>取消预约</a>
+                </li>
+                ";
+                $i++;
+              }
+            }
+
+           ?>
+          </ul>
 
     </div>
     <div id="test2" class="col s12">
         <!-- 已完成的健身计划 以下为范例-->
         <ul class="collection">
-            <li id="1" /*此处id即为用户预约表中的id */class="collection-item">
+          <?php
+            $sql_query = "SELECT * FROM `gym_data` WHERE yibanID ='". $yibanID."'";
+            $result = $db->query($sql_query);
+            if ($result->num_rows == 0)
+            {
+              ;
+            }
+            else {
+              foreach ($result as $value) {
+                if ($value['time'] == 1)
+                {
+                  $time = "18:00-19:00";
+                }
+                elseif ($value['time'] == 2) {
+                  $time = "19:00-20:00";
+                }
+                elseif ($value['time'] == 3)
+                {
+                  $time = "20:00-21:00";
+                }
+                echo "<li id='".$value['id']."' class='collection-item'>
+                    ".$value['date']." ".$time."</li>
+                ";
+              }
+            }
+           ?>
+        <!--    <li id="1" /*此处id即为用户预约表中的id */class="collection-item">
                 10月11日 19:00~20:00
             </li>
             <li id="2" class="collection-item">
                 10月12日 20:00~21:00
-            </li>
-    </ul>
+            </li> -->
+          </ul>
     </div>
     <div id="test3" class="col s12">
         <!-- 按时提醒 -->

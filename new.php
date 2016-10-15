@@ -1,7 +1,36 @@
 <?php
 //易班验证blablabla
+    session_start();
+    //    include "assets/API/header_api_session.php";
+    //    include "assets/API/iapp.php";
+    include "assets/API/config.php";
+    include "assets/API/db_config.php";
 
+    if(!isset($_GET['time'])||!isset($_GET['date']))
+    {
+      die("请勿直接访问此页面！");
+    }
 
+    if ($_GET['time'] == 1)
+    {
+      $showTime = "18:00-19:00";
+    }
+    elseif ($_GET['time'] == 2) {
+      $showTime = "19:00-20:00";
+    }
+    elseif ($_GET['time'] == 3)
+    {
+      $showTime = "20:00-21:00";
+    }
+    $time = $_GET['time'];
+
+    $date = $_GET['date'];
+    $year = substr($date,0,4);
+    $month = substr($date,4,2);
+    $day = substr($date,6,2);
+    $showDate = $month."月".$day."日";
+    $name = "张三";
+    $schoolID = "2015211313";
 ?>
 
 <!DOCTYPE html>
@@ -33,7 +62,10 @@
    <!-- 说明 -->
    <div class="info">
     <h3>确认预订信息</h3>
-    <p>您的网薪:x点,这是您本周第一次预订，享受免费预订机会,额外预订需要支付y网薪!</p>
+    <p>
+      目前系统处于试运营阶段，预定暂时不需支付网薪，但若预定后失约，两周内不能再进行预约，望周知。
+    </p>
+    <!--<p>您的网薪:x点,这是您本周第一次预订，享受免费预订机会,额外预订需要支付y网薪!</p>-->
     <!-- <p>您的网薪:x点,本周免费预订次数您已用完！额外预订需要支付y网薪!</p> -->
     <!-- <p>由于您之前两次预订失约，您在两周内不能再进行预约。 哦豁o(*≧▽≦)ツ┏━┓[拍桌狂笑!]</p> -->
     <!-- <p>您已经预约了目前所有可用的时间段！对不起，您一定是疯了- -</p> -->
@@ -44,14 +76,14 @@
       <div id="show">
           <p>姓名 : <span id="show_name">预填充姓名(接口)</span></p>
           <p>学号 : <span id="show_id">预填充学号(接口)</span></p>
-          <p>日期 : <span id="show_date"></span></p>
-          <p>时间 : <span id="show_time"></span></p>
+          <p>日期 : <span id="show_date"><?php echo $showDate; ?></span></p>
+          <p>时间 : <span id="show_time"><?php echo $showTime; ?></span></p>
       </div>
       <form id="form" method="post" action="">
-          <input value="刘子锐" id="name" type="hidden" name="name">
-          <input id="id" value="2015212149" type="hidden" name="id">
-          <input id="date" type="hidden" name="date">
-          <input id="time" type="hidden" name="time">
+          <input id="name" value="<?php echo $name; ?>" type="hidden" name="name">
+          <input id="id" value="<?php echo $schoolID; ?>" type="hidden" name="id">
+          <input id="date" value="<?php echo $showDate; ?>" type="hidden" name="date">
+          <input id="time" value="<?php echo $time; ?>" type="hidden" name="time">
       </form>
 
       <hr />
