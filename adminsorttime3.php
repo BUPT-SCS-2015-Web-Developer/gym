@@ -59,6 +59,7 @@
 	$num_result = mysqli_num_rows($result);
 	for ($i=0;$i<$num_result;$i++) {
 		$row = mysqli_fetch_row($result);
+		$nid=$row[0];
 		if ($row[5]=='20:00-21:00'){
 		?>          
 					<tr>
@@ -67,7 +68,12 @@
                         <td><?php echo $row[3]?></td>
 						<td><?php echo $row[4]?></td>
 						<td><?php echo $row[5]?></td>
-						<td><a class="waves-effect waves-teal btn-flat" href="#">已赴约</a><a class="waves-effect waves-teal btn-flat" href="#">未赴约</a></td>
+						<td id="change<?=$nid?>"><?php echo $row[6]?></td>
+						<td><a class='dropdown-button btn   waves-effect waves-teal btn-flat   '  data-activates='drop<?=$nid?>'>修改状态</a>
+                            <ul id='drop<?=$nid?>' class='dropdown-content'>
+                            <li><a onclick="javascript:ypromise('<?=$nid?>');">已赴约</a></li>
+                            <li><a onclick="javascript:npromise('<?=$nid?>');">未赴约</a></li></ul>
+						</td>
                     </tr>
 					
 		<?php
@@ -80,9 +86,9 @@
 		<div class="row">
 		    <div class="col s2 offset-s2 grid-example">
 		        <!-- Dropdown Trigger -->
-                <a class='dropdown-button btn' href='#' data-activates='dropdown1'>记录筛选</a>
+                <a class='dropdown-button btn' href='#' data-activates='dropdown2'>记录筛选</a>
                 <!-- Dropdown Structure -->
-                <ul id='dropdown1' class='dropdown-content'>
+                <ul id='dropdown2' class='dropdown-content'>
                     <li><a href="adminsorttime1.php">18:00—19:00</a></li>
                     <li><a href="adminsorttime2.php">19:00—20:00</a></li>
                     <li><a href="adminsorttime3.php">20:00—21:00</a></li>
@@ -91,7 +97,7 @@
                 </ul>
 		    </div>
 		    <div class="col s2 offset-s2 grid-example">
-		        <a class="waves-effect waves-light btn" onclick="saveAsExcel('excel1')">导出表格</a>
+		        <a class="waves-effect waves-light btn disabled" onclick="saveAsExcel('excel1')">导出表格</a>
 		    </div>
 		</div>
   </div>
@@ -109,6 +115,72 @@
   <script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
   <script src="assets/js/materialize.js"></script>
   <script type="text/javascript" src="assets/js/getexcel.js"></script>
+<script type="text/javascript">
+    function ypromise(thisid){
+		var xmlhttp;
+		try {
+			xmlhttp = new XMLHttpRequest();
+		}
+		catch (e) {
+			try {
+				xmlhttp = new ActiveXObject("Msxm12.XMLHTTP");
+			}
+			catch (e){
+				try {
+					xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+				}
+				catch (e){
+					alert("您的浏览器不支持AJAX");
+					return false;
+				}
+			}
+		}
+		
+		var url = "adminsignin.php?outcome=Y&id="+thisid+"&sid="+Math.random();
+		xmlhttp.onreadystatechange = function() { 
+            if (xmlhttp.readyState==4 && xmlhttp.status==200) { 
+                document.getElementById("change"+thisid).innerHTML=xmlhttp.responseText;
+            } 
+        };
+		xmlhttp.open("GET",url,true);
+		xmlhttp.send(null);
+		
+
+	}
+	
+	function npromise(thisid){
+		var xmlhttp;
+		
+		try {
+			xmlhttp =  XMLHttpRequest();
+		}
+		catch (e) {
+			try {
+				xmlhttp = new ActiveXObject("Msxm12.XMLHTTP");
+			}
+			catch (e){
+				try {
+					xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+				}
+				catch (e){
+					alert("您的浏览器不支持AJAX");
+					return false;
+				}
+			}
+		}
+		
+		var url = "adminsignin.php?outcome=N&id="+thisid+"&sid="+Math.random();	
+		xmlhttp.onreadystatechange=function() { 
+            if (xmlhttp.readyState==4 && xmlhttp.status==200) { 
+                document.getElementById("change"+thisid).innerHTML=xmlhttp.responseText;
+            } 
+        } 
+		xmlhttp.open("GET",url,true);
+		xmlhttp.send(null);
+		
+
+	}
+</script>
   <script>
     $(function(){
 
