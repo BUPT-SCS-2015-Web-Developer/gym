@@ -1,8 +1,8 @@
 <?php
 
-	$con = mysqli_connect('localhost', 'root', 'jmy5zhentan5') or die ("不能连接数据库:");
-	mysqli_select_db($con,'SportReservation');
-	
+//	$con = mysqli_connect('localhost', 'root', 'jmy5zhentan5') or die ("不能连接数据库:");
+//	mysqli_select_db($con,'SportReservation');
+
 ?>
 
 <!DOCTYPE html>
@@ -61,7 +61,7 @@
 		$row = mysqli_fetch_row($result);
 		$nid=$row[0];
 		if ($row[5]=='18:00-19:00'){
-		?>          
+		?>
 					<tr>
                         <td><?php echo $row[1]?></td>
                         <td><?php echo $row[2]?></td>
@@ -75,11 +75,11 @@
                             <li><a onclick="javascript:npromise('<?=$nid?>');">未赴约</a></li></ul>
 						</td>
                     </tr>
-					
+
 		<?php
 		}
 	}
-?>  
+?>
                 </tbody>
              </table>
 		</div>

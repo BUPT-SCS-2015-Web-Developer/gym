@@ -1,8 +1,8 @@
 <?php
 
-	$con = mysqli_connect('localhost', 'root', 'jmy5zhentan5') or die ("不能连接数据库:");
-	mysqli_select_db($con,'SportReservation');
-	
+//	$con = mysqli_connect('localhost', 'root', 'jmy5zhentan5') or die ("不能连接数据库:");
+//	mysqli_select_db($con,'SportReservation');
+
 ?>
 
 <!DOCTYPE html>
@@ -52,7 +52,7 @@
             <div class="input-field col s6">
               <input id="start_time" type="text" class="validate">
               <label for="start_time">公告起始时间</label>
-            </div>      
+            </div>
             <div class="input-field col s6">
               <input id="end_time" type="text" class="validate">
               <label for="end_time">公告终止时间</label>

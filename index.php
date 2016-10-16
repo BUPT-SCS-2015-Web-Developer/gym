@@ -1,10 +1,53 @@
 <?php
-//易班验证blablabla
-//想起易班验证我就发愁
-    $showingDay = 7; //可以提前预定/列表显示的天数
-    $peopleLimit = 15; //每个时间段人数上限
+    session_start();
+    //    include "assets/API/header_api_session.php";
+    //    include "assets/API/iapp.php";
+    include "assets/API/config.php";
+    include "assets/API/db_config.php";
 
+    $date = array();
+    $id = array();
 
+    date_default_timezone_set('Asia/Shanghai');
+    $nowTimeShow = date("Y年m月d日 H:i");
+    $nowTime = date("H:i");
+    $nowDate = date("Y-m月d日");
+
+    //$nowWeekday = date("N"); //1~7
+    $flag = 0;
+    if ($nowTime >= "17:00")
+    {
+        $flag = 1;
+    }
+    else
+    {
+        ;
+    }
+    for ($i=0;$i<$showingDay;$i++)
+    {
+        $date[$i] = date("m月d日",strtotime("+".($i+$flag)." day"));
+        $id[$i] = date("Ymd",strtotime("+".($i+$flag)." day"));
+    }
+
+    $db = new mysqli($db_host,$db_user,$db_password,$db_database);
+    if (!$db)
+    {
+      exit('Could not connect: ' . mysql_error());
+    }
+    $db->query("set names 'utf8'");
+
+/*    $yibanID = $_SESSION['yibanID'];
+    $sql_query = "SELECT * FROM `askforleave` WHERE `yibanID` = $yibanID";
+    $result = $db->query($sql_query);
+    if ($result->num_rows == 0)
+    {
+      echo "<script language=javascript>alert('您还未请假！');window.location.href='leave.php';</script>";
+      exit(0);
+    }
+    else {
+      ;
+    }
+*/
 ?>
 
 <!DOCTYPE html>
@@ -59,8 +102,8 @@
    <!-- 说明 -->
    <div class="info">
     <h3>预订日程</h3>
-    <p>现在时间是mm-dd hh-mm,当日预约截止时间为17:00</p>
-    <p>您可以预订x天内的健身,点击下方可用时间段进行预订!</p>
+    <p>现在时间是<b><?php echo $nowTimeShow; ?></b>,当日预约截止时间为17:00</p>
+    <p>您可以预订<b><?php echo $showingDay; ?></b>天内的健身,点击下方可用时间段进行预订!</p>
     <!-- <p>由于您之前两次预订失约，您在两周内不能再进行预约。 哦豁o(*≧▽≦)ツ┏━┓[拍桌狂笑!]</p> -->
     <!-- <p>您已经预约了目前所有可用的时间段！对不起，您一定是疯了- -</p> -->
    </div>
@@ -69,108 +112,80 @@
    <!-- 以下为范例,括弧中为提示,正式上线时务必删除 -->
    <div id="bookList">
     <ul class="collapsible popout" data-collapsible="expandable">
-     <li>
-      <!-- collapsible-header和colorBox的class分别为 red lighten-3 满人 yellow darken-2 超过10人 teal lighten-2 空闲 -->
-      <!-- 对于满人的一天，class中不加active -->
-      <div class="collapsible-header teal lighten-2 grey-text text-lighten-5 active">
-        10月11日 星期二(32/45 不满80% 为绿色)
-      </div>
-      <div id="20161011" class="collapsible-body">
-       <!-- id为日期,yyyymmdd格式 -->
-       <div class="timeBox timeBox1">
-        <div class="colorBox yellow darken-2"></div>
-        <div class="leftBox">
-         18:00~19:00
-        </div>
-        <div class="rightBox">
-         12/15
-        </div>
-       </div>
-       <div class="timeBox timeBox2">
-        <div class="colorBox red lighten-3"></div>
-        <div class="leftBox">
-         19:00~20:00
-        </div>
-        <div class="rightBox">
-         15/15
-        </div>
-       </div>
-       <div class="timeBox timeBox3">
-        <div class="colorBox teal lighten-2"></div>
-        <div class="leftBox">
-         20:00~21:00
-        </div>
-        <div class="rightBox">
-         5/15
-        </div>
-       </div>
-      </div> </li>
-     <li>
-      <div class="collapsible-header yellow darken-2 grey-text text-lighten-5 active">
-        10月12日 星期三(39/45 超过80% 为黄色)
-      </div>
-      <div id="20161011" class="collapsible-body">
-       <div class="timeBox timeBox1">
-        <div class="colorBox yellow darken-2"></div>
-        <div class="leftBox">
-         18:00~19:00
-        </div>
-        <div class="rightBox">
-         14/15
-        </div>
-       </div>
-       <div class="timeBox timeBox2">
-        <div class="colorBox red lighten-3"></div>
-        <div class="leftBox">
-         19:00~20:00
-        </div>
-        <div class="rightBox">
-         15/15
-        </div>
-       </div>
-       <div class="timeBox timeBox3">
-        <div class="colorBox yellow darken-2"></div>
-        <div class="leftBox">
-         20:00~21:00
-        </div>
-        <div class="rightBox">
-         13/15
-        </div>
-       </div>
-      </div> </li>
-     <li>
-      <div class="collapsible-header red lighten-3 grey-text text-lighten-5">
-        10月13日 星期四(45/45 红色 且无active 即默认不显示)
-      </div>
-      <div id="20161011" class="collapsible-body">
-       <div class="timeBox timeBox1">
-        <div class="colorBox red lighten-3"></div>
-        <div class="leftBox">
-         18:00~19:00
-        </div>
-        <div class="rightBox">
-         15/15
-        </div>
-       </div>
-       <div class="timeBox timeBox2">
-        <div class="colorBox red lighten-3"></div>
-        <div class="leftBox">
-         19:00~20:00
-        </div>
-        <div class="rightBox">
-         15/15
-        </div>
-       </div>
-       <div class="timeBox timeBox3">
-        <div class="colorBox red lighten-3"></div>
-        <div class="leftBox">
-         20:00~21:00
-        </div>
-        <div class="rightBox">
-         15/15
-        </div>
-       </div>
-      </div> </li>
+        <?php
+            for ($i=0;$i<$showingDay;$i++)
+            {
+                $nowPeople = array();
+                $class = array();
+                $totalPeople = $peopleLimit*3;
+
+                $sql_query = "SELECT * FROM `gym_reserve` WHERE `date` ='". $date[$i]."'";
+                $result = $db->query($sql_query);
+                $nowTotalPeople = $result->num_rows;
+
+                if($nowTotalPeople < $totalPeople * 0.65)
+                {
+                    $totalClass = " teal lighten-2 active ";
+                }
+                elseif ($nowTotalPeople < $totalPeople) {
+                    $totalClass = " yellow darken-2 active ";
+                }
+                else {
+                    $totalClass = " red lighten-3 ";
+                }
+
+                for($j=1;$j<=3;$j++)
+                {
+                    $sql_query = "SELECT * FROM `gym_reserve` WHERE date ='". $date[$i]."' AND time = '".$j."'";
+                    $result = $db->query($sql_query);
+                    $nowPeople[$j] = $result->num_rows;
+                    if($nowPeople[$j] < $peopleLimit * 0.65)
+                    {
+                        $class[$j] = " teal lighten-2 active ";
+                    }
+                    elseif ($nowPeople[$j] < $peopleLimit) {
+                        $class[$j] = " yellow darken-2 active ";
+                    }
+                    else {
+                        $class[$j] = " red lighten-3 ";
+                    }
+                }
+                echo "<li>
+                 <div class='collapsible-header grey-text text-lighten-5 ".$totalClass."'>
+                   ".$date[$i]."  ".$nowTotalPeople."/".$totalPeople."
+                 </div>
+                 <div id=".$id[$i]." class='collapsible-body'>
+                  <div class='timeBox timeBox1'>
+                   <div class='colorBox".$class[1]."'></div>
+                   <div class='leftBox'>
+                    18:00~19:00
+                   </div>
+                   <div class='rightBox'>
+                    ".$nowPeople[1]."/".$peopleLimit."
+                   </div>
+                  </div>
+                  <div class='timeBox timeBox2'>
+                   <div class='colorBox".$class[2]."'></div>
+                   <div class='leftBox'>
+                    19:00~20:00
+                   </div>
+                   <div class='rightBox'>
+                    ".$nowPeople[2]."/".$peopleLimit."
+                   </div>
+                  </div>
+                  <div class='timeBox timeBox3'>
+                   <div class='colorBox".$class[3]."'></div>
+                    <div class='leftBox'>
+                    20:00~21:00
+                   </div>
+                   <div class='rightBox'>
+                    ".$nowPeople[3]."/".$peopleLimit."
+                   </div>
+                  </div>
+                 </div>
+               </li>";
+            }
+        ?>
     </ul>
    </div>
    <!-- 预订状况结束 -->
