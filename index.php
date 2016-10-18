@@ -61,6 +61,7 @@
   <link href="assets/css/index.css" type="text/css" rel="stylesheet" />
  </head>
  <body>
+     <header>
   <nav class="light-blue lighten-1" role="navigation">
    <div class="nav-wrapper container hide-on-med-and-down">
     <a href="index.php" class="brand-logo"> <img class="logo circle" src="assets/img/logo.png" />健身房预约</a>
@@ -75,6 +76,8 @@
     </ul>
    </div>
   </nav>
+  </header>
+  <main>
   <div class="container">
    <!-- 公告开始 -->
    <!-- 公告模板 php处理
@@ -192,7 +195,7 @@
   </div>
   <br />
   <br />
-  <br />
+  <br /></main>
   <footer class="page-footer grey">
    <div class="container">
     <div class="row">

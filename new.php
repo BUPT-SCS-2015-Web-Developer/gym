@@ -29,6 +29,7 @@
     $month = substr($date,4,2);
     $day = substr($date,6,2);
     $showDate = $month."月".$day."日";
+
     $name = "张三";
     $schoolID = "2015211313";
 ?>
@@ -82,7 +83,7 @@
       <form id="form" method="post" action="">
           <input id="name" value="<?php echo $name; ?>" type="hidden" name="name">
           <input id="id" value="<?php echo $schoolID; ?>" type="hidden" name="id">
-          <input id="date" value="<?php echo $showDate; ?>" type="hidden" name="date">
+          <input id="date" value="<?php echo $date; ?>" type="hidden" name="date">
           <input id="time" value="<?php echo $time; ?>" type="hidden" name="time">
       </form>
 

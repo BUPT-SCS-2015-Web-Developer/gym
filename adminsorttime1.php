@@ -22,11 +22,11 @@
         <a href="#" class="brand-logo">
             <img class="logo circle" src="assets/img/logo.png">健身房预约</a>
       <ul class="right">
-        <li><a href="#">个人中心</a></li>
+        <li><a href="my.php">个人中心</a></li>
       </ul>
     </div>
     <div class="nav-wrapper hide-on-large-only">
-        <a href="#" class="brand-logo">
+        <a href="index.php" class="brand-logo">
             <img class="logo circle" src="assets/img/logo.png">健身房预约</a>
       <ul class="left">
         <li><a href="#"><img id="user" class="circle" src="assets/img/user.png"></a></li>

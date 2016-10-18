@@ -1,5 +1,5 @@
 $(function() {
-    $("btn_cancel").click(function(){
+    $(".btn-cancel").click(function(){
         var cancelData = {};
         cancelData.id = $(this).parents("li").attr("id");
         console.log(cancelData);
