@@ -3,6 +3,17 @@
 * {
     font-family:"Microsoft YaHei","Microsoft Yahei","微软雅黑",微软雅黑,"SimHei","Simhei","黑体",黑体,arial;
 }
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
 .logo {
     position:relative;
     left:-2px;
@@ -41,7 +52,7 @@
 }
 .timeBox:hover {
     background-color:rgb(150,150,150);
-    
+
 }
 .timeList p{
     padding:2px;
@@ -63,7 +74,7 @@
 }
 
 .rightBox {
-    
+
     position:absolute;
     top:5px;
     right:5px;
