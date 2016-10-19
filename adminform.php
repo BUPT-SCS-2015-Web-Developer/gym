@@ -1,7 +1,7 @@
 <?php
 
-//	$con = mysqli_connect('localhost', 'root', 'jmy5zhentan5') or die ("不能连接数据库:");
-//	mysqli_select_db($con,'SportReservation');
+	//$con = mysqli_connect('localhost', 'root', 'jmy5zhentan5') or die ("不能连接数据库:");
+	//mysqli_select_db($con,'SportReservation');
 
 ?>
 
@@ -96,7 +96,7 @@
                 </ul>
 		    </div>
 		    <div class="col s2 offset-s2 grid-example">
-		        <a class="waves-effect waves-light btn"  onclick="saveAsExcel('excel1')">导出表格</a>
+		        <a id="wantexcel" class="waves-effect waves-light btn"  onclick="funTestDown();">导出表格</a>
 		    </div>
 		</div>
   </div>
@@ -115,22 +115,44 @@
   <script src="assets/js/materialize.js"></script>
   <script type="text/javascript" src="assets/js/getexcel.js"></script>
 
+
+
+
 <script type="text/javascript">
-    $(document).ready(function(){
-        var sta=0;
-  $("#button").click(function(){
-  sta==0?(function(){
-      sta=1;
-       $.get("test.php",{"status":0},function(data){
-    $("#test").html(data.t1);
-  },"json")})():(function(){
-          sta=0;
-       $.get("test.php",{"status":1},function(data){
-    $("#test").html(data.t2);
-  },"json")})();
-});
-});
-</script>
+        function funTestDown() {
+			var xmlhttp;
+		    try {
+			   xmlhttp = new XMLHttpRequest();
+		    }
+		    catch (e) {
+			    try {
+				    xmlhttp = new ActiveXObject("Msxm12.XMLHTTP");
+			        }
+			    catch (e){
+				    try {
+					    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+				    }
+				    catch (e){
+					   alert("您的浏览器不支持AJAX");
+					   return false;
+				    }
+			    }
+		    }
+			var url = "maybeexcel.php?sid="+Math.random();
+		    xmlhttp.onreadystatechange = function() { 
+                if (xmlhttp.readyState==4 && xmlhttp.status==200) { 
+                    
+                } 
+            };
+		    xmlhttp.open("GET",url,true);
+		    xmlhttp.send(null);
+           var myrar = window.open("AppointmentInformation.xlsx");
+            myrar.document.execCommand("SaveAs");
+            myrar.close();
+        }
+    </script>
+
+
 
 <script type="text/javascript">
     function ypromise(thisid){
