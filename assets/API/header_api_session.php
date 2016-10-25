@@ -1,7 +1,7 @@
 <?php
 //Environment settings
 $iapp_id = 'iapp65401'; //Eg. iapp40000
-$iapp_bupt_url = 'localhost/gym'; //Eg. http://yiban.bupt.edu.cn/askforleave/leave.php
+$iapp_bupt_url = 'http://gym.buptyiban.org/index.php'; //Eg. http://yiban.bupt.edu.cn/askforleave/leave.php
 
 //Program
 //Set SESSION Cookie's expire time and path before session_start()

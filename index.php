@@ -40,36 +40,36 @@
 
 <!DOCTYPE html>
 <html lang="en">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
-  <title>健身房预约 - 北邮易班</title>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-  <link href="assets/css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection" />
-  <link href="assets/css/index.css" type="text/css" rel="stylesheet" />
- </head>
- <body>
-     <header>
-  <nav class="light-blue lighten-1" role="navigation">
-   <div class="nav-wrapper container hide-on-med-and-down">
-    <a href="index.php" class="brand-logo"> <img class="logo circle" src="assets/img/logo.png" />健身房预约</a>
-    <ul class="right">
-      <?php
-        if ($_SESSION['userType'] === "辅导员"){
-          echo "<li><a href='adminform.php'>后台管理</a></li>";
-        }
-       ?>
-     <li><a href="my.php">个人中心</a></li>
-    </ul>
-   </div>
-   <div class="nav-wrapper hide-on-large-only">
-    <a href="index.php" class="brand-logo"> <img class="logo circle" src="assets/img/logo.png" />健身房预约</a>
-    <ul class="left">
-     <li><a href="my.php"><img id="user" class="circle" src="assets/img/user.png" /></a></li>
-    </ul>
-   </div>
-  </nav>
-  </header>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+    <title>健身房预约 - 北邮易班</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link href="assets/css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="assets/css/index.css" type="text/css" rel="stylesheet" />
+  </head>
+  <body>
+    <header>
+      <nav class="light-blue lighten-1" role="navigation">
+        <div class="nav-wrapper container hide-on-med-and-down">
+          <a href="index.php" class="brand-logo"> <img class="logo circle" src="assets/img/logo.png" />健身房预约</a>
+            <ul class="right">
+              <?php
+              if ($_SESSION['userType'] === "辅导员"){
+                echo "<li><a href='adminform.php'>后台管理</a></li>";
+              }
+              ?>
+              <li><a href="my.php">个人中心</a></li>
+            </ul>
+        </div>
+        <div class="nav-wrapper hide-on-large-only">
+          <a href="index.php" class="brand-logo"> <img class="logo circle" src="assets/img/logo.png" />健身房预约</a>
+          <ul class="left">
+            <li><a href="my.php"><img id="user" class="circle" src="assets/img/user.png" /></a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
   <main>
   <div class="container">
    <!-- 公告开始 -->

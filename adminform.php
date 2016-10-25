@@ -1,8 +1,19 @@
 <?php
+  session_start();
+  //    include "assets/API/header_api_session.php";
+  //    include "assets/API/iapp.php";
+  include "assets/API/config.php";
+  include "assets/API/db_config.php";
 
-	//$con = mysqli_connect('localhost', 'root', 'jmy5zhentan5') or die ("不能连接数据库:");
-	//mysqli_select_db($con,'SportReservation');
+  $db = new mysqli($db_host,$db_user,$db_password,$db_database);
+  if (!$db)
+  {
+    exit('Could not connect: ' . mysql_error());
+  }
+  $db->query("set names 'utf8'");
 
+  $name = $_SESSION['name'] = "张三";
+  $schoolID = $_SESSION['schoolID'] = "2015211313";
 ?>
 
 <!DOCTYPE html>
@@ -17,22 +28,28 @@
   <link href="assets/css/index.css" type="text/css" rel="stylesheet"/>
 </head>
 <body>
-  <nav class="light-blue lighten-1" role="navigation">
-    <div class="nav-wrapper container hide-on-med-and-down">
-        <a href="#" class="brand-logo">
-            <img class="logo circle" src="assets/img/logo.png">健身房预约</a>
-      <ul class="right">
-        <li><a href="#">个人中心</a></li>
-      </ul>
-    </div>
-    <div class="nav-wrapper hide-on-large-only">
-        <a href="#" class="brand-logo">
-            <img class="logo circle" src="assets/img/logo.png">健身房预约</a>
-      <ul class="left">
-        <li><a href="#"><img id="user" class="circle" src="assets/img/user.png"></a></li>
-      </ul>
-    </div>
-  </nav>
+  <header>
+    <nav class="light-blue lighten-1" role="navigation">
+      <div class="nav-wrapper container hide-on-med-and-down">
+        <a href="index.php" class="brand-logo"> <img class="logo circle" src="assets/img/logo.png" />健身房预约</a>
+          <ul class="right">
+            <?php
+            if ($_SESSION['userType'] === "辅导员"){
+              echo "<li><a href='adminform.php'>后台管理</a></li>";
+            }
+            ?>
+            <li><a href="my.php">个人中心</a></li>
+          </ul>
+      </div>
+      <div class="nav-wrapper hide-on-large-only">
+        <a href="index.php" class="brand-logo"> <img class="logo circle" src="assets/img/logo.png" />健身房预约</a>
+        <ul class="left">
+          <li><a href="my.php"><img id="user" class="circle" src="assets/img/user.png" /></a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <main>
   <div class="container">
       <!--<div class="row">
           <h5 class="grey-text darken-1">当前预约状况</h5>
@@ -41,44 +58,39 @@
       <table id="excel1" class="striped">
         <thead>
           <tr>
-            <th data-field="id">学号</th>
+            <th data-field="schoolID">学号</th>
             <th data-field="name">姓名</th>
-            <th data-field="institution">学院</th>
             <th data-field="date">预约日期</th>
             <th data-field="time">预约时间</th>
-            <th data-field="ifkppromise">赴约情况</th>
+            <th data-field="confirm">赴约情况</th>
           </tr>
         </thead>
         <tbody>
+          <tr>
             <?php
-                $result = mysqli_query($con,"SELECT * FROM `appointment` ");
-            	mysqli_query($con,"set names utf8");
-            	$num_result = mysqli_num_rows($result);
-            	for ($i=0;$i<$num_result;$i++) {
-            		$row = mysqli_fetch_row($result);
-            		$nid=$row[0];
-                    ?>
-
-					<tr>
-                        <td><?php echo $row[1]?></td>
-                        <td><?php echo $row[2]?></td>
-                        <td><?php echo $row[3]?></td>
-						<td><?php echo $row[4]?></td>
-						<td><?php echo $row[5]?></td>
-					    <td id="change<?=$nid?>"><?php echo $row[6]?></td>
+              $sql_query = "SELECT * FROM `gym_reserve`";
+              $result = $db->query($sql_query);
+            	foreach ($result as $row) {
+            		$nid=$row['id'];
+            ?>
+            <td><?php echo $row['schoolID']?></td>
+            <td><?php echo $row['name']?></td>
+						<td><?php echo $row['date']?></td>
+						<td><?php echo $row['time']?></td>
+			<!--	    <td id="change<?=$nid?>"><?php echo $row['id']?></td> -->
 						<td><a class='dropdown-button btn   waves-effect waves-teal btn-flat   ' data-activates='drop<?=$nid?>'>修改状态</a>
                             <ul id='drop<?=$nid?>' class='dropdown-content'>
                             <li><a onclick="javascript:ypromise('<?=$nid?>');">已赴约</a></li>
                             <li><a onclick="javascript:npromise('<?=$nid?>');">未赴约</a></li></ul>
 						</td>
-                    </tr>
+          </tr>
 
-		<?php
-	}
-?>
-                </tbody>
-             </table>
-		</div>
+          <?php
+            }
+          ?>
+        </tbody>
+      </table>
+	</div>
 		<div class="row">
 		    <div class="col s2 offset-s2 grid-example">
 		        <!-- Dropdown Trigger -->
