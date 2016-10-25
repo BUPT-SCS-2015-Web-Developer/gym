@@ -1,5 +1,6 @@
 <?php
     session_start();
+    $_SESSION['userType'] = "辅导员";
     //    include "assets/API/header_api_session.php";
     //    include "assets/API/iapp.php";
     include "assets/API/config.php";
@@ -35,19 +36,6 @@
       exit('Could not connect: ' . mysql_error());
     }
     $db->query("set names 'utf8'");
-
-/*    $yibanID = $_SESSION['yibanID'];
-    $sql_query = "SELECT * FROM `askforleave` WHERE `yibanID` = $yibanID";
-    $result = $db->query($sql_query);
-    if ($result->num_rows == 0)
-    {
-      echo "<script language=javascript>alert('您还未请假！');window.location.href='leave.php';</script>";
-      exit(0);
-    }
-    else {
-      ;
-    }
-*/
 ?>
 
 <!DOCTYPE html>
@@ -66,6 +54,11 @@
    <div class="nav-wrapper container hide-on-med-and-down">
     <a href="index.php" class="brand-logo"> <img class="logo circle" src="assets/img/logo.png" />健身房预约</a>
     <ul class="right">
+      <?php
+        if ($_SESSION['userType'] === "辅导员"){
+          echo "<li><a href='adminform.php'>后台管理</a></li>";
+        }
+       ?>
      <li><a href="my.php">个人中心</a></li>
     </ul>
    </div>

@@ -50,14 +50,14 @@
 			$_SESSION['userType'] = $info['info']['yb_identity'];
 			if($_SESSION['userType'] != "辅导员")
 			{
-				include "db_config.php";
+					include "db_config.php";
 			    $db = new mysqli($db_host,$db_user,$db_password,$db_database);
 			  	if (!$db)
 			  	{
 			  		exit('Could not connect: ' . mysql_error());
 			  	}
 			  	$db->query("set names 'utf8'");
-			    $sql_query = "SELECT * FROM `askforleave_user` WHERE `schoolID` = ".$_SESSION['schoolID'];
+			    $sql_query = "SELECT * FROM `gym_admin` WHERE `schoolID` = ".$_SESSION['schoolID'];
 			    $result = $db->query($sql_query);
 			    if ($result->num_rows == 0)
 			  	{
@@ -80,7 +80,7 @@
 		$_SESSION['name'] = $info['info']['yb_realname'];
 		$_SESSION['schoolID'] = $info['info']['yb_studentid'];
 		$_SESSION['userType'] = $info['info']['yb_identity'];
-		if($_SESSION['userType'] === "学生")
+		if($_SESSION['userType'] !== "辅导员")
 		{
 			include "db_config.php";
 			$db = new mysqli($db_host,$db_user,$db_password,$db_database);
@@ -89,7 +89,7 @@
 				exit('Could not connect: ' . mysql_error());
 			}
 			$db->query("set names 'utf8'");
-			$sql_query = "SELECT * FROM `askforleave_user` WHERE `schoolID` = ".$_SESSION['schoolID'];
+			$sql_query = "SELECT * FROM `gym_admin` WHERE `schoolID` = ".$_SESSION['schoolID'];
 			$result = $db->query($sql_query);
 			if ($result->num_rows == 0)
 			{

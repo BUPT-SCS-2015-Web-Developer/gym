@@ -9,6 +9,20 @@
 
     date_default_timezone_set('Asia/Shanghai');
     $nowTimeShow = date("Y年m月d日 H:i");
+    $nowHour = date("H");
+    $nowTime = date("H:i");
+    $nowDate = date("m月d日");
+
+    if ($nowHour < "19")
+      $flagHour = 0;
+    elseif ($nowHour >= "19" && $nowHour < "20")
+      $flagHour = 1;
+    elseif ($nowHour >= "20" && $nowHour < "21") {
+      $flagHour = 2;
+    }
+    else {
+      $flagHour = 3;
+    }
 
     $db = new mysqli($db_host,$db_user,$db_password,$db_database);
     if (!$db)
@@ -83,10 +97,19 @@
                 {
                   $time = "20:00-21:00";
                 }
+
                 echo "<li id='".$value['id']."' class='collection-item'>
-                    ".$value['date']." ".$time."<a class='right waves-effect waves-light btn btn-cancel'>取消预约</a>
-                </li>
-                ";
+                    ".$value['date']." ".$time;
+                if ($value['date'] > $nowDate)
+                  echo "<a class='right waves-effect waves-light btn btn-cancel'>取消预约</a>";
+                elseif ($value['time'] < $flagHour && $value['date'] == $nowDate) {
+                  echo "<a class='right waves-effect waves-light btn btn-cancel'>取消预约</a>";
+                }
+                else {
+                  echo "<div class='right'>等待确认</span>";
+                }
+                echo "</li>";
+                ;
                 $i++;
               }
             }

@@ -33,34 +33,31 @@
       </ul>
     </div>
   </nav>
-
-
-
   <div class="container">
-            <!--<div class="row">
-                <h5 class="grey-text darken-1">当前预约状况</h5>
-            </div>-->
-    	    <div class="cross">
-		    <table id="excel1" class="striped">
-                <thead>
-                    <tr>
-                        <th data-field="id">学号</th>
-                        <th data-field="name">姓名</th>
-						<th data-field="institution">学院</th>
-						<th data-field="date">预约日期</th>
-                        <th data-field="time">预约时间</th>
-						<th data-field="ifkppromise">赴约情况</th>
-                     </tr>
-                </thead>
-                <tbody>
-<?php
-    $result = mysqli_query($con,"SELECT * FROM `appointment` ");
-	mysqli_query($con,"set names utf8");
-	$num_result = mysqli_num_rows($result);
-	for ($i=0;$i<$num_result;$i++) {
-		$row = mysqli_fetch_row($result);
-		$nid=$row[0];
-        ?>          
+      <!--<div class="row">
+          <h5 class="grey-text darken-1">当前预约状况</h5>
+      </div>-->
+    <div class="cross">
+      <table id="excel1" class="striped">
+        <thead>
+          <tr>
+            <th data-field="id">学号</th>
+            <th data-field="name">姓名</th>
+            <th data-field="institution">学院</th>
+            <th data-field="date">预约日期</th>
+            <th data-field="time">预约时间</th>
+            <th data-field="ifkppromise">赴约情况</th>
+          </tr>
+        </thead>
+        <tbody>
+            <?php
+                $result = mysqli_query($con,"SELECT * FROM `appointment` ");
+            	mysqli_query($con,"set names utf8");
+            	$num_result = mysqli_num_rows($result);
+            	for ($i=0;$i<$num_result;$i++) {
+            		$row = mysqli_fetch_row($result);
+            		$nid=$row[0];
+                    ?>
 
 					<tr>
                         <td><?php echo $row[1]?></td>
@@ -115,9 +112,6 @@
   <script src="assets/js/materialize.js"></script>
   <script type="text/javascript" src="assets/js/getexcel.js"></script>
 
-
-
-
 <script type="text/javascript">
         function funTestDown() {
 			var xmlhttp;
@@ -139,10 +133,10 @@
 			    }
 		    }
 			var url = "maybeexcel.php?sid="+Math.random();
-		    xmlhttp.onreadystatechange = function() { 
-                if (xmlhttp.readyState==4 && xmlhttp.status==200) { 
-                    
-                } 
+		    xmlhttp.onreadystatechange = function() {
+                if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+
+                }
             };
 		    xmlhttp.open("GET",url,true);
 		    xmlhttp.send(null);
@@ -174,22 +168,22 @@
 				}
 			}
 		}
-		
+
 		var url = "adminsignin.php?outcome=Y&id="+thisid+"&sid="+Math.random();
-		xmlhttp.onreadystatechange = function() { 
-            if (xmlhttp.readyState==4 && xmlhttp.status==200) { 
+		xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState==4 && xmlhttp.status==200) {
                 document.getElementById("change"+thisid).innerHTML=xmlhttp.responseText;
-            } 
+            }
         };
 		xmlhttp.open("GET",url,true);
 		xmlhttp.send(null);
-		
+
 
 	}
-	
+
 	function npromise(thisid){
 		var xmlhttp;
-		
+
 		try {
 			xmlhttp =  XMLHttpRequest();
 		}
@@ -207,16 +201,16 @@
 				}
 			}
 		}
-		
-		var url = "adminsignin.php?outcome=N&id="+thisid+"&sid="+Math.random();	
-		xmlhttp.onreadystatechange=function() { 
-            if (xmlhttp.readyState==4 && xmlhttp.status==200) { 
+
+		var url = "adminsignin.php?outcome=N&id="+thisid+"&sid="+Math.random();
+		xmlhttp.onreadystatechange=function() {
+            if (xmlhttp.readyState==4 && xmlhttp.status==200) {
                 document.getElementById("change"+thisid).innerHTML=xmlhttp.responseText;
-            } 
-        } 
+            }
+        }
 		xmlhttp.open("GET",url,true);
 		xmlhttp.send(null);
-		
+
 
 	}
 </script>
