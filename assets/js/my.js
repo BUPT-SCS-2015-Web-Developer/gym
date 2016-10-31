@@ -7,7 +7,7 @@ $(function() {
             if (status == "success") {
                 if (data == "1")
                 {
-                  Materialize.toast("取消预约成功!", 3000, '', function()
+                  Materialize.toast("取消预约成功!3s后返回查看其他预约!", 3000, '', function()
                   {
                     window.location.href="my.php";
                   });

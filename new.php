@@ -1,8 +1,8 @@
 <?php
 //易班验证blablabla
     session_start();
-    //    include "assets/API/header_api_session.php";
-    //    include "assets/API/iapp.php";
+    include "assets/API/header_api_session.php";
+    include "assets/API/iapp.php";
     include "assets/API/config.php";
     include "assets/API/db_config.php";
 
@@ -30,35 +30,55 @@
     $day = substr($date,6,2);
     $showDate = $month."月".$day."日";
 
-    $name = "张三";
-    $schoolID = "2015211313";
+    $name = $_SESSION['name'];
+    $schoolID = $_SESSION['schoolID'];
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
- <head>
+<head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
   <title>健身房预约 - 北邮易班</title>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
   <link href="assets/css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection" />
   <link href="assets/css/index.css" type="text/css" rel="stylesheet" />
- </head>
- <body>
-  <nav class="light-blue lighten-1" role="navigation">
-   <div class="nav-wrapper container hide-on-med-and-down">
-    <a href="index.php" class="brand-logo"> <img class="logo circle" src="assets/img/logo.png" />健身房预约</a>
-    <ul class="right">
-     <li><a href="my.php">个人中心</a></li>
-    </ul>
-   </div>
-   <div class="nav-wrapper hide-on-large-only">
-    <a href="index.php" class="brand-logo"> <img class="logo circle" src="assets/img/logo.png" />健身房预约</a>
-    <ul class="left">
-     <li><a href="my.php"><img id="user" class="circle" src="assets/img/user.png" /></a></li>
-    </ul>
-   </div>
-  </nav>
+  <style media="screen">
+  body {
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+  }
+
+  main {
+      flex: 1 0 auto;
+  }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="light-blue lighten-1" role="navigation">
+      <div class="nav-wrapper container hide-on-med-and-down">
+        <a href="index.php" class="brand-logo"> <img class="logo circle" src="assets/img/logo.png" />健身房预约</a>
+          <ul class="right">
+            <?php
+            if ($_SESSION['userType'] === "辅导员"){
+              echo "<li><a href='adminbroadcast.php'>发布公告</a></li>";
+              echo "<li><a href='adminform.php'>后台管理</a></li>";
+            }
+            ?>
+            <li><a href="my.php">个人中心</a></li>
+          </ul>
+      </div>
+      <div class="nav-wrapper hide-on-large-only">
+        <a href="index.php" class="brand-logo"> <img class="logo circle" src="assets/img/logo.png" />健身房预约</a>
+        <ul class="left">
+          <li><a href="my.php"><img id="user" class="circle" src="assets/img/user.png" /></a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+<main>
   <div class="container">
    <!-- 说明 -->
    <div class="info">
@@ -75,10 +95,10 @@
    <hr />
    <!-- 表单开始  -->
       <div id="show">
-          <p>姓名 : <span id="show_name">预填充姓名(接口)</span></p>
-          <p>学号 : <span id="show_id">预填充学号(接口)</span></p>
-          <p>日期 : <span id="show_date"><?php echo $showDate; ?></span></p>
-          <p>时间 : <span id="show_time"><?php echo $showTime; ?></span></p>
+          <p>姓名 : <span id="show_name"><?php echo $name; ?></span></p>
+          <p>学号 : <span id="show_id"><?php echo $schoolID; ?></span></p>
+          <p>日期 : <span id="show_date" style="color:red;"><?php echo $showDate; ?></span></p>
+          <p>时间 : <span id="show_time" style="color:red;"><?php echo $showTime; ?></span></p>
       </div>
       <form id="form" method="post" action="">
           <input id="name" value="<?php echo $name; ?>" type="hidden" name="name">
@@ -95,6 +115,7 @@
   <br />
   <br />
   <br />
+</main>
   <footer class="page-footer grey">
    <div class="container">
     <div class="row">

@@ -7,13 +7,13 @@ $(function(){
         if($(this).hasClass("timeBox1")) time = 1;
         else if($(this).hasClass("timeBox2")) time = 2;
         else  time = 3;
-        //console.log(time);      
+        //console.log(time);
         //console.log($(this).parent(".collapsible-body").attr('id'));
         var string = "new.php?time="+time+"&date="+date;
         window.location.href = string;
-        
+
     });
     $('.known').click(function() {
-       $(this).parents(".noticeBox").hide(1000);
+       $(this).parents(".card").hide(1000);
     });
-}); 
+});

@@ -11,9 +11,6 @@
     exit('Could not connect: ' . mysql_error());
   }
   $db->query("set names 'utf8'");
-
-  $name = $_SESSION['name'] = "张三";
-  $schoolID = $_SESSION['schoolID'] = "2015211313";
 ?>
 
 <!DOCTYPE html>
@@ -28,27 +25,48 @@
   <link href="assets/css/index.css" type="text/css" rel="stylesheet"/>
 </head>
 <body>
-  <header>
-    <nav class="light-blue lighten-1" role="navigation">
-      <div class="nav-wrapper container hide-on-med-and-down">
-        <a href="index.php" class="brand-logo"> <img class="logo circle" src="assets/img/logo.png" />健身房预约</a>
-          <ul class="right">
-            <?php
-            if ($_SESSION['userType'] === "辅导员"){
-              echo "<li><a href='adminform.php'>后台管理</a></li>";
-            }
-            ?>
-            <li><a href="my.php">个人中心</a></li>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+    <title>健身房预约 - 北邮易班</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link href="assets/css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="assets/css/index.css" type="text/css" rel="stylesheet" />
+    <style media="screen">
+    body {
+        display: flex;
+        min-height: 100vh;
+        flex-direction: column;
+    }
+
+    main {
+        flex: 1 0 auto;
+    }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav class="light-blue lighten-1" role="navigation">
+        <div class="nav-wrapper container hide-on-med-and-down">
+          <a href="index.php" class="brand-logo"> <img class="logo circle" src="assets/img/logo.png" />健身房预约</a>
+            <ul class="right">
+              <?php
+              if ($_SESSION['userType'] === "辅导员"){
+                echo "<li><a href='adminbroadcast.php'>发布公告</a></li>";
+                echo "<li><a href='adminform.php'>后台管理</a></li>";
+              }
+              ?>
+              <li><a href="my.php">个人中心</a></li>
+            </ul>
+        </div>
+        <div class="nav-wrapper hide-on-large-only">
+          <a href="index.php" class="brand-logo"> <img class="logo circle" src="assets/img/logo.png" />健身房预约</a>
+          <ul class="left">
+            <li><a href="my.php"><img id="user" class="circle" src="assets/img/user.png" /></a></li>
           </ul>
-      </div>
-      <div class="nav-wrapper hide-on-large-only">
-        <a href="index.php" class="brand-logo"> <img class="logo circle" src="assets/img/logo.png" />健身房预约</a>
-        <ul class="left">
-          <li><a href="my.php"><img id="user" class="circle" src="assets/img/user.png" /></a></li>
-        </ul>
-      </div>
-    </nav>
-  </header>
+        </div>
+      </nav>
+    </header>
   <main>
   <div class="container">
       <!--<div class="row">
@@ -76,7 +94,19 @@
             <td><?php echo $row['schoolID']?></td>
             <td><?php echo $row['name']?></td>
 						<td><?php echo $row['date']?></td>
-						<td><?php echo $row['time']?></td>
+						<td><?php
+                        if ($row['time'] == 1)
+                        {
+                          $time = "18:00-19:00";
+                        }
+                        elseif ($row['time'] == 2) {
+                          $time = "19:00-20:00";
+                        }
+                        elseif ($row['time'] == 3)
+                        {
+                          $time = "20:00-21:00";
+                        }
+                        echo $time;?></td>
 			<!--	    <td id="change<?=$nid?>"><?php echo $row['id']?></td> -->
 						<td><a class='dropdown-button btn   waves-effect waves-teal btn-flat   ' data-activates='drop<?=$nid?>'>修改状态</a>
                             <ul id='drop<?=$nid?>' class='dropdown-content'>
@@ -94,7 +124,7 @@
 		<div class="row">
 		    <div class="col s2 offset-s2 grid-example">
 		        <!-- Dropdown Trigger -->
-                <a class='dropdown-button btn' href='#' data-activates='dropdown2'>记录筛选</a>
+                <!--<a class='dropdown-button btn' href='#' data-activates='dropdown2'>记录筛选</a>-->
                 <!-- Dropdown Structure -->
                 <ul id='dropdown2' class='dropdown-content'>
                     <li><a href="adminsorttime1.php">18:00—19:00</a></li>
@@ -109,7 +139,7 @@
 		    </div>
 		</div>
   </div>
-
+</main>
   <footer class="page-footer orange">
     <div class="footer-copyright">
       <div class="container">
@@ -189,8 +219,7 @@
         };
 		xmlhttp.open("GET",url,true);
 		xmlhttp.send(null);
-
-
+        window.location.href="adminform.php";
 	}
 
 	function npromise(thisid){

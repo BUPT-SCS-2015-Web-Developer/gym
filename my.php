@@ -1,11 +1,11 @@
 <?php
     session_start();
-    //    include "assets/API/header_api_session.php";
-    //    include "assets/API/iapp.php";
+    include "assets/API/header_api_session.php";
+    include "assets/API/iapp.php";
     include "assets/API/config.php";
     include "assets/API/db_config.php";
 
-    $yibanID = "yibanID";
+    $yibanID = $_SESSION['yibanID'];
 
     date_default_timezone_set('Asia/Shanghai');
     $nowTimeShow = date("Y年m月d日 H:i");
@@ -30,42 +30,45 @@
       exit('Could not connect: ' . mysql_error());
     }
     $db->query("set names 'utf8'");
-
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
-    <title>健身房预约 - 北邮易班</title>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-    <link href="assets/css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection" />
-    <link href="assets/css/my.css" type="text/css" rel="stylesheet" />
-  </head>
-  <body>
-    <header>
-      <nav class="light-blue lighten-1" role="navigation">
-        <div class="nav-wrapper container hide-on-med-and-down">
-          <a href="index.php" class="brand-logo"> <img class="logo circle" src="assets/img/logo.png" />健身房预约</a>
-            <ul class="right">
-              <?php
-              if ($_SESSION['userType'] === "辅导员"){
-                echo "<li><a href='adminform.php'>后台管理</a></li>";
-              }
-              ?>
-              <li><a href="my.php">个人中心</a></li>
-            </ul>
-        </div>
-        <div class="nav-wrapper hide-on-large-only">
-          <a href="index.php" class="brand-logo"> <img class="logo circle" src="assets/img/logo.png" />健身房预约</a>
-          <ul class="left">
-            <li><a href="my.php"><img id="user" class="circle" src="assets/img/user.png" /></a></li>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+  <title>健身房预约 - 北邮易班</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <link href="assets/css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection" />
+  <link href="assets/css/index.css" type="text/css" rel="stylesheet" />
+  <style media="screen">
+  
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="light-blue lighten-1" role="navigation">
+      <div class="nav-wrapper container hide-on-med-and-down">
+        <a href="index.php" class="brand-logo"> <img class="logo circle" src="assets/img/logo.png" />健身房预约</a>
+          <ul class="right">
+            <?php
+            if ($_SESSION['userType'] === "辅导员"){
+              echo "<li><a href='adminbroadcast.php'>发布公告</a></li>";
+              echo "<li><a href='adminform.php'>后台管理</a></li>";
+            }
+            ?>
+            <li><a href="my.php">个人中心</a></li>
           </ul>
-        </div>
-      </nav>
-    </header>
-  <main>
+      </div>
+      <div class="nav-wrapper hide-on-large-only">
+        <a href="index.php" class="brand-logo"> <img class="logo circle" src="assets/img/logo.png" />健身房预约</a>
+        <ul class="left">
+          <li><a href="my.php"><img id="user" class="circle" src="assets/img/user.png" /></a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+<main>
   <div class="container">
    <!-- 说明 -->
    <div class="info">
@@ -110,7 +113,7 @@
                     ".$value['date']." ".$time;
                 if ($value['date'] > $nowDate)
                   echo "<a class='right waves-effect waves-light btn btn-cancel'>取消预约</a>";
-                elseif ($value['time'] < $flagHour && $value['date'] == $nowDate) {
+                elseif ($value['time'] > $flagHour && $value['date'] == $nowDate) {
                   echo "<a class='right waves-effect waves-light btn btn-cancel'>取消预约</a>";
                 }
                 else {
@@ -167,6 +170,7 @@
         <!-- 按时提醒 -->
 
         <label>开启按时提醒后，易班客户端将会在预约前提前通知您。</label>
+        <label>提醒功能还在测试中！敬请期待！</label>
     <select class="browser-default" id="alarm">
       <option value="-1" selected>不提醒</option>
       <option value="5">提前5分钟</option>
@@ -182,6 +186,7 @@
   <br />
   <br />
   <br />
+</main>
   <footer class="page-footer grey">
    <div class="container">
     <div class="row">

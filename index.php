@@ -1,8 +1,7 @@
 <?php
     session_start();
-    $_SESSION['userType'] = "辅导员";
-    //    include "assets/API/header_api_session.php";
-    //    include "assets/API/iapp.php";
+    include "assets/API/header_api_session.php";
+    include "assets/API/iapp.php";
     include "assets/API/config.php";
     include "assets/API/db_config.php";
 
@@ -11,6 +10,7 @@
 
     date_default_timezone_set('Asia/Shanghai');
     $nowTimeShow = date("Y年m月d日 H:i");
+    $judgeDate = date("Y-m-d");
     $nowTime = date("H:i");
     $nowDate = date("Y-m月d日");
 
@@ -37,7 +37,6 @@
     }
     $db->query("set names 'utf8'");
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -47,6 +46,17 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
     <link href="assets/css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection" />
     <link href="assets/css/index.css" type="text/css" rel="stylesheet" />
+    <style media="screen">
+    body {
+        display: flex;
+        min-height: 100vh;
+        flex-direction: column;
+    }
+
+    main {
+        flex: 1 0 auto;
+    }
+    </style>
   </head>
   <body>
     <header>
@@ -56,6 +66,7 @@
             <ul class="right">
               <?php
               if ($_SESSION['userType'] === "辅导员"){
+                echo "<li><a href='adminbroadcast.php'>发布公告</a></li>";
                 echo "<li><a href='adminform.php'>后台管理</a></li>";
               }
               ?>
@@ -72,6 +83,39 @@
     </header>
   <main>
   <div class="container">
+    <?php
+      $flag = false;
+      $sql_query = "SELECT * FROM gym_announcement";
+      $result = $db->query($sql_query);
+      foreach ($result as $value) {
+        if ($value['startTime'] <= $judgeDate && $judgeDate <= $value['endTime'])
+        {
+          echo "<div id='notice1'>
+              <div class='card grey lighten-5'>
+                <div class='card-content grey-text text-darken-4'>
+                  <span class='card-title'>".$value['topic']."</span>
+                  <p>".$value['content']."</p>
+                </div>
+                <div class='card-action'>
+                  <a class='known' href='#'>我知道了</a>
+                </div>
+              </div>
+          </div>";
+          $flag = true;
+        }
+      }
+
+      if (!$flag)
+      {
+        echo "<div id='notice0'>
+         <div class='card grey lighten-5 '>
+          <div class='card-content grey-text text-darken-4'>
+           <span class='card-title'>Harvest by labor, fitness by exercise.</span>
+          </div>
+         </div>
+        </div>";
+      }
+     ?>
    <!-- 公告开始 -->
    <!-- 公告模板 php处理
       <div id="notice1">
@@ -87,13 +131,8 @@
       </div>
       -->
    <!-- 如果没有公告 显示这个 -->
-   <div id="notice0">
-    <div class="card grey lighten-5 ">
-     <div class="card-content grey-text text-darken-4">
-      <span class="card-title">Harvest by labor, fitness by exercise.</span>
-     </div>
-    </div>
-   </div>
+
+
    <!-- 公告结束 -->
    <!-- 说明 -->
    <div class="info">

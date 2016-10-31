@@ -3,7 +3,7 @@
 
   //这里加上非法请求的判断
 
-  $yibanID = "yibanID";
+  $yibanID = $_SESSION['yibanID'];
   $schoolID = $_POST['id'];
   $name = $_POST['name'];
   $date = $_POST['date'];
@@ -35,6 +35,14 @@
   if ($nowPeople >= $peopleLimit)
   {
     echo "3";
+    die;
+  }
+
+  $sql_query = "SELECT * FROM `gym_reserve` WHERE date ='". $date."' AND time = '".$time."' AND yibanID = '".$yibanID."'";
+  $result = $db->query($sql_query);
+  if ($result->num_rows)
+  {
+    echo "4";
     die;
   }
 

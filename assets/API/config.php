@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 	$cfg = array(
 		'x' => array(
 			'appID'		=> 'fc3690f0f9f0552f',

@@ -3,7 +3,6 @@
 
   //这里加上非法请求的判断
 
-  $yibanID = "yibanID";
   $id = $_POST['id'];
 
   include "assets/API/config.php";

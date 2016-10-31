@@ -47,18 +47,19 @@ $(function(){
 
             $.post("newOrder.php",order_data,function(data,status){
                 if (status == "success") {
-                    if (data == "1") Materialize.toast("修改成功!将在3秒后返回主页", 3000,'',function(){
+                    if (data == "1") Materialize.toast("提交成功!将在3秒后返回主页", 3000,'',function(){
             window.location.href="index.php";
         });
                     else if (data == "2") Materialize.toast("非法请求!", 5000);
                     else if (data == "3") Materialize.toast("本时间段人数已满!", 5000);
+                    else if (data == "4") Materialize.toast("您已预约本时段健身房!", 5000);
                     else if (data == "5") Materialize.toast("参数错误!请勿作死!", 5000);
                     else Materialize.toast("服务器异常，请稍后再试!", 5000);
                 } else Materialize.toast("服务器异常，请稍后再试!", 5000);
             });
-            Materialize.toast('提交成功!将在3秒后返回主页', 3000,'',function(){
-            window.location.href="index.php";
-        });
+            //Materialize.toast('提交成功!将在3秒后返回主页', 3000,'',function(){
+            //window.location.href="index.php";
+        //});
         } else {
             Materialize.toast('参数错误!请勿作死!', 5000);
             return;
