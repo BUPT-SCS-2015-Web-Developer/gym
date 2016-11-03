@@ -84,6 +84,17 @@
   <main>
   <div class="container">
     <?php
+    if ($_SESSION['userType'] === "辅导员"){
+        echo "<br/><div class='row'>
+        <div class='col s2 offset-s2 grid-example'>
+        <a class='waves-effect waves-light btn' href='adminbroadcast.php' >发布公告</a>
+        </div>";
+      echo "<div class='col s2 offset-s2 grid-example'>
+          <a href='adminform.php' class='waves-effect waves-light btn'>后台管理</a>
+      </div></div>";
+    }
+
+
       $flag = false;
       $sql_query = "SELECT * FROM gym_announcement";
       $result = $db->query($sql_query);

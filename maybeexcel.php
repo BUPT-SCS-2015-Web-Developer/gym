@@ -1,101 +1,65 @@
-
-
 <?php
-date_default_timezone_set('Europe/London');
-/** PHPExcel */
-require_once 'Classes/PHPExcel.php';
+    
+    session_start();
+    date_default_timezone_set('Asia/Shanghai');
+    $nowDate = date("m月d日");
 
-// Create new PHPExcel object
-$objPHPExcel = new PHPExcel();
+    include "assets/API/db_config.php";
+//    include "assets/API/dcon.php";
+    $db = new mysqli($db_host,$db_user,$db_password,$db_database);
+    if (!$db)
+      {
+      die('Could not connect: ' . mysql_error());
+      }
+    $db->query("set names 'utf8'");
 
+    $sql_query = "SELECT * FROM `gym_reserve` WHERE `date` <= '".$nowDate."' order by `date`, `time`";//查询语句
+    $result = $db->query($sql_query);
 
-// Set properties
-$objPHPExcel->getProperties()->setCreator("Maarten Balliauw")
-                             ->setLastModifiedBy("Maarten Balliauw")
-                             ->setTitle("Office 2007 XLSX Test Document")
-                             ->setSubject("Office 2007 XLSX Test Document")
-                             ->setDescription("Test document for Office 2007 XLSX, generated using PHP classes.")
-                             ->setKeywords("office 2007 openxml php")
-                             ->setCategory("Test result file");
-$objPHPExcel->getActiveSheet()->mergeCells('A1:G1');
-$objPHPExcel->getActiveSheet()->getStyle('A1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-$objPHPExcel->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
-$objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(20);
-$objPHPExcel->getActiveSheet()->getColumnDimension('E')->setWidth(20);
+    require_once 'Classes/PHPExcel.php';
 
 
-
-
-$objPHPExcel->setActiveSheetIndex(0)
-            ->setCellValue('A2', '序号')
-            ->setCellValue('B2', '学号')
-            ->setCellValue('C2', '姓名')
-            ->setCellValue('D2', '学院')
-            ->setCellValue('E2', '预约日期')
-            ->setCellValue('F2', '预约时间')
-            ->setCellValue('G2', '赴约情况');
-
-
-//数据库连接
-include "assets/API/db_config.php";
-$db = new mysqli($db_host,$db_user,$db_password,$db_database);
-if (!$db)
-{
-  exit('Could not connect: ' . mysql_error());
-}
-$db->query("set names 'utf8'");
-
-
-$sqlgroups="SELECT * from gym_reserve order by id";
-$resultgroups=$db->query($sqlgroups);
-    $numrows=$resultgroups->num_rows;
-
-    if ($numrows>0)
-    {
-        $count=2;
-        foreach ($resultgroups as $data) {
-            # code...
-        }
-        {
-
-            $count+=1;
-            $l1="A"."$count";
-            $l2="B"."$count";
-            $l3="C"."$count";
-            $l4="D"."$count";
-            $l5="E"."$count";
-            $l6="F"."$count";
-            $l7="G"."$count";
-            $objPHPExcel->setActiveSheetIndex(0)
-                        ->setCellValue($l1, $data['yibanID'])
-                        ->setCellValue($l2, $data['schoolID'])
-                        ->setCellValue($l3, $data['name'])
-                        ->setCellValue($l4, $data['time'])
-                        ->setCellValue($l5, $data['date']);
-        }
+    $objPHPExcel=new PHPExcel();
+    $objPHPExcel->getProperties()->setCreator('Bupt')
+            ->setLastModifiedBy('Bupt')
+            ->setTitle('Office 2007 XLSX Document')
+            ->setSubject('Office 2007 XLSX Document')
+            ->setDescription('Document for Office 2007 XLSX, generated using PHP classes.')
+            ->setKeywords('office 2007 openxml php')
+            ->setCategory('Result file');
+    $objPHPExcel->setActiveSheetIndex(0)
+                ->setCellValue('A1','学号')
+                ->setCellValue('B1','姓名')
+                ->setCellValue('C1','日期')
+                ->setCellValue('D1','时间')
+                ->setCellValue('E1','到达');
+    $i = 2;
+    foreach($result as $v){
+     $objPHPExcel->setActiveSheetIndex(0)
+                ->setCellValue('A'.$i,$v['schoolID'])
+                ->setCellValue('B'.$i,$v['name'])
+                ->setCellValue('C'.$i,$v['date'])
+                ->setCellValue('D'.$i,$v['time']);
+                $i++;
     }
+    $objPHPExcel->getActiveSheet()->setTitle('Sheet1');
+    $objPHPExcel->setActiveSheetIndex(0);
+    $filename=urlencode('信息统计').'_'.date('Y-m-dHis');
 
-// Rename sheet
-$objPHPExcel->getActiveSheet()->setTitle('AppointmentInformation');
+/*
+    header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    header('Content-Disposition: attachment;filename="'.$filename.'.xlsx"');
+    header('Cache-Control: max-age=0');
+    $objWriter=PHPExcel_IOFactory::createWriter($objPHPExcel,'Excel2007');
+*/
+    /*
+    *生成xls文件*/
+    header('Content-Type: application/vnd.ms-excel');
+    header('Content-Disposition: attachment;filename="'.$filename.'.xls"');
+    header('Cache-Control: max-age=0');
+    $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
 
+    $objWriter->save('php://output');
+    //exit;
 
-// Set active sheet index to the first sheet, so Excel opens this as the first sheet
-$objPHPExcel->setActiveSheetIndex(0);
-
-
-// Redirect output to a client’s web browser (Excel2007)
-header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-header('Content-Disposition: attachment;filename="AppointmentInformation.xlsx"');
-header('Cache-Control: max-age=0');
-
-// If you're serving to IE over SSL, then the following may be needed
-header ('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
-header ('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT'); // always modified
-header ('Cache-Control: cache, must-revalidate'); // HTTP/1.1
-header ('Pragma: public'); // HTTP/1.0
-
-
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-$objWriter->save('AppointmentInformation.xlsx');
-exit;
-?>
+ ?>
