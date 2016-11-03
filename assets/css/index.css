@@ -70,12 +70,26 @@ main {
     width:20px;
     position:absolute;
     top:5px;
-    left:4px
+    left:2px;
 }
-
+.showing {
+    display:inline-block;
+    position:relative!important;
+}
 .rightBox {
 
     position:absolute;
     top:5px;
     right:5px;
+}
+
+#terms,#instruction{
+    position:absolute;
+    width:90%;
+    max-height:90%;
+    top:5%;
+    left:5%;
+    margin:0 auto;
+    text-align:center;
+    display: none;
 }
