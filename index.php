@@ -1,7 +1,8 @@
 <?php
-
-
     session_start();
+
+    $yibanID = $_SESSION['yibanID'];
+
     include "assets/API/header_api_session.php";
     include "assets/API/iapp.php";
     include "assets/API/config.php";
@@ -38,8 +39,8 @@
       exit('Could not connect: ' . mysql_error());
     }
     $db->query("set names 'utf8'");
-    
-    
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -68,7 +69,7 @@
         <div class="nav-wrapper container hide-on-med-and-down">
           <a href="index.php" class="brand-logo"> <img class="logo circle" src="assets/img/logo.png" />健身房预约</a>
             <ul class="right">
-              <?php 
+              <?php
               if ($_SESSION['userType'] === "辅导员"){
                 echo "<li><a href='adminbroadcast.php'>发布公告</a></li>";
                 echo "<li><a href='adminform.php'>后台管理</a></li>";
@@ -88,7 +89,7 @@
   <main>
   <div class="container">
     <?php
-      
+
     if ($_SESSION['userType'] === "辅导员"){
         echo "<br/><div class='row hide-on-large-only'>
         <div class='col s2 offset-s2 grid-example'>
@@ -131,27 +132,9 @@
          </div>
         </div>";
       }
-      
-                                                                        
+
+
      ?>
-   <!-- 公告开始 -->
-   <!-- 公告模板 php处理
-      <div id="notice1">
-          <div class="card grey lighten-5">
-            <div class="card-content grey-text text-darken-4">
-              <span class="card-title">公告标题</span>
-              <p>公告内容</p>
-            </div>
-            <div class="card-action">
-              <a class="known" href="#">我知道了</a>
-            </div>
-          </div>
-      </div>
-      -->
-   <!-- 如果没有公告 显示这个 -->
-
-
-   <!-- 公告结束 -->
    <!-- 说明 -->
    <div class="info">
     <h3>预订日程</h3>
@@ -159,11 +142,11 @@
     <p>您可以预订<b><?php echo $showingDay; ?></b>天内的健身,点击下方可用时间段进行预订!</p>
     <!-- <p>由于您之前两次预订失约，您在两周内不能再进行预约。 哦豁o(*≧▽≦)ツ┏━┓[拍桌狂笑!]</p> -->
     <!-- <p>您已经预约了目前所有可用的时间段！对不起，您一定是疯了- -</p> -->
-       
+
    </div>
-   
+
    <hr />
-      <div class="right">
+   <div class="right">
       <span class='colorBox teal lighten-2 showing'></span> 空闲
       <span class='colorBox yellow darken-2 showing'></span> 繁忙
       <span class='colorBox red lighten-3 showing'></span> 满额
@@ -173,11 +156,12 @@
    <!-- 以下为范例,括弧中为提示,正式上线时务必删除 -->
    <div id="bookList">
     <ul class="collapsible popout" data-collapsible="expandable">
-        <?php 
+        <?php
             for ($i=0;$i<$showingDay;$i++)
             {
                 $nowPeople = array();
                 $class = array();
+                $confirm = array();
                 $totalPeople = $peopleLimit*3;
 
                 $sql_query = "SELECT * FROM `gym_reserve` WHERE `date` ='". $date[$i]."'";
@@ -197,6 +181,15 @@
 
                 for($j=1;$j<=3;$j++)
                 {
+                    $sql_query = "SELECT * FROM `gym_reserve` WHERE date ='". $date[$i]."' AND time = '".$j."' AND yibanID = '".$yibanID."'";
+                    $result = $db->query($sql_query);
+                    if ($result->num_rows >= 1){
+                      $confirm[$j] = "已预约";
+                    }
+                    else{
+                      $confirm[$j] = "";
+                    }
+
                     $sql_query = "SELECT * FROM `gym_reserve` WHERE date ='". $date[$i]."' AND time = '".$j."'";
                     $result = $db->query($sql_query);
                     $nowPeople[$j] = $result->num_rows;
@@ -222,7 +215,7 @@
                     18:00~19:00
                    </div>
                    <div class='rightBox'>
-                    ".$nowPeople[1]."/".$peopleLimit."
+                    ".$nowPeople[1]."/".$peopleLimit." ".$confirm[1]."
                    </div>
                   </div>
                   <div class='timeBox timeBox2'>
@@ -231,7 +224,7 @@
                     19:00~20:00
                    </div>
                    <div class='rightBox'>
-                    ".$nowPeople[2]."/".$peopleLimit."
+                    ".$nowPeople[2]."/".$peopleLimit." ".$confirm[2]."
                    </div>
                   </div>
                   <div class='timeBox timeBox3'>
@@ -240,12 +233,12 @@
                     20:00~21:00
                    </div>
                    <div class='rightBox'>
-                    ".$nowPeople[3]."/".$peopleLimit."
+                    ".$nowPeople[3]."/".$peopleLimit." ".$confirm[3]."
                    </div>
                   </div>
                  </div>
                </li>";
-            } 
+            }
         ?>
     </ul>
    </div>
@@ -307,8 +300,7 @@
 预约: 进入健身房系统主页并经过易班授权后，只需点击可用的时间段(非红色满人时间段)即可进入预约页，在支付一定网薪(待定)后就预约完成啦。<br/>
 查看预约信息：手机端的话点左上角的头像进个人中心查看，电脑则是右上角。可以在这里临时取消预约。<br/>
 违约处罚：一旦被记录失约后，您将一段时间内无法预约。 如恶意违约多次可能会被封禁。<br/>
-
-</p>
+              </p>
             </div>
             <div class="card-action">
               <a id="closeInstruction" href="#">关闭</a>

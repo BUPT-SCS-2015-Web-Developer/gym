@@ -1,10 +1,11 @@
 <?php
-    
+
     session_start();
     date_default_timezone_set('Asia/Shanghai');
     $nowDate = date("m月d日");
 
     include "assets/API/db_config.php";
+    include "assets/API/config.php";
 //    include "assets/API/dcon.php";
     $db = new mysqli($db_host,$db_user,$db_password,$db_database);
     if (!$db)
@@ -13,11 +14,17 @@
       }
     $db->query("set names 'utf8'");
 
-    $sql_query = "SELECT * FROM `gym_reserve` WHERE `date` <= '".$nowDate."' order by `date`, `time`";//查询语句
-    $result = $db->query($sql_query);
-
     require_once 'Classes/PHPExcel.php';
 
+    $nowPeople = array();
+    for ($j = 1; $j<=3;$j++){
+      $sql_query = "SELECT * FROM `gym_reserve` WHERE date ='". $nowDate."' AND time = '".$j."'";
+      $result = $db->query($sql_query);
+      $nowPeople[$j] = $result->num_rows;
+    }
+
+    $sql_query = "SELECT * FROM `gym_reserve` WHERE `date` = '".$nowDate."' order by `date`, `time`";//查询语句
+    $result = $db->query($sql_query);
 
     $objPHPExcel=new PHPExcel();
     $objPHPExcel->getProperties()->setCreator('Bupt')
@@ -28,23 +35,37 @@
             ->setKeywords('office 2007 openxml php')
             ->setCategory('Result file');
     $objPHPExcel->setActiveSheetIndex(0)
-                ->setCellValue('A1','学号')
-                ->setCellValue('B1','姓名')
-                ->setCellValue('C1','日期')
-                ->setCellValue('D1','时间')
-                ->setCellValue('E1','到达');
-    $i = 2;
+                ->setCellValue('A1','三个时段人数：')
+                ->setCellValue('B1',$nowPeople[1]."/".$peopleLimit)
+                ->setCellValue('C1',$nowPeople[2]."/".$peopleLimit)
+                ->setCellValue('D1',$nowPeople[3]."/".$peopleLimit)
+                ->setCellValue('A2','学号')
+                ->setCellValue('B2','姓名')
+                ->setCellValue('C2','日期')
+                ->setCellValue('D2','时间')
+                ->setCellValue('E2','到达');
+    $i = 3;
     foreach($result as $v){
+      if ($v['time'] == 1)
+      {
+        $showTime = "18:00-19:00";
+      }
+      elseif ($v['time'] == 2) {
+        $showTime = "19:00-20:00";
+      }
+      elseif ($v['time'] == 3){
+        $showTime = "20:00-21:00";
+      }
      $objPHPExcel->setActiveSheetIndex(0)
                 ->setCellValue('A'.$i,$v['schoolID'])
                 ->setCellValue('B'.$i,$v['name'])
                 ->setCellValue('C'.$i,$v['date'])
-                ->setCellValue('D'.$i,$v['time']);
+                ->setCellValue('D'.$i,$showTime);
                 $i++;
     }
     $objPHPExcel->getActiveSheet()->setTitle('Sheet1');
     $objPHPExcel->setActiveSheetIndex(0);
-    $filename=urlencode('信息统计').'_'.date('Y-m-dHis');
+    $filename=urlencode('健身房').'_'.date('Y-m-dHis');
 
 /*
     header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
