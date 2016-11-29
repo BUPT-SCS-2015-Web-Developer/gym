@@ -12,5 +12,9 @@
 		)
 	);
 	$showingDay = 5; //可以提前预定/列表显示的天数
+<<<<<<< HEAD
 	$peopleLimit = 45; //每个时间段人数上限
+=======
+	$peopleLimit = 40; //每个时间段人数上限
+>>>>>>> 1e4a7d4f1dcc28dcfe28de0a0e605483d96b742c
 ?>

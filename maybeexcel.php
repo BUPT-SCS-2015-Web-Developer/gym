@@ -23,6 +23,12 @@
       $nowPeople[$j] = $result->num_rows;
     }
 
+<<<<<<< HEAD
+=======
+    $sql_query = "SELECT * FROM `gym_reserve` WHERE `date` = '".$nowDate."' order by `date`, `time`";//查询语句
+    $result = $db->query($sql_query);
+
+>>>>>>> 1e4a7d4f1dcc28dcfe28de0a0e605483d96b742c
     $objPHPExcel=new PHPExcel();
     $objPHPExcel->getProperties()->setCreator('Bupt')
             ->setLastModifiedBy('Bupt')
@@ -41,10 +47,13 @@
                 ->setCellValue('C2','日期')
                 ->setCellValue('D2','时间')
                 ->setCellValue('E2','到达');
+<<<<<<< HEAD
 
     $sql_query = "SELECT * FROM `gym_reserve` WHERE `date` = '".$nowDate."' order by `date`, `time`";//查询语句
     $result = $db->query($sql_query);
     
+=======
+>>>>>>> 1e4a7d4f1dcc28dcfe28de0a0e605483d96b742c
     $i = 3;
     foreach($result as $v){
       if ($v['time'] == 1)

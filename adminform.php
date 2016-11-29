@@ -101,7 +101,11 @@
         <tbody>
           <tr>
             <?php
+<<<<<<< HEAD
               $sql_query = "SELECT * FROM `gym_reserve` WHERE `date` = '".$checkDate."' order by `date`, `time`";
+=======
+              $sql_query = "SELECT * FROM `gym_reserve` WHERE `date` <= '".$nowDate."' order by `date`, `time`";
+>>>>>>> 1e4a7d4f1dcc28dcfe28de0a0e605483d96b742c
               $result = $db->query($sql_query);
             	foreach ($result as $row) {
             		$nid=$row['id'];
