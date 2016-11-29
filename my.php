@@ -13,16 +13,10 @@
     $nowTime = date("H:i");
     $nowDate = date("m月d日");
 
-    if ($nowHour < "19")
+    if ($nowHour > "17")
       $flagHour = 0;
-    elseif ($nowHour >= "19" && $nowHour < "20")
-      $flagHour = 1;
-    elseif ($nowHour >= "20" && $nowHour < "21") {
-      $flagHour = 2;
-    }
-    else {
-      $flagHour = 3;
-    }
+    else
+        $flagHour = 1;
 
     $db = new mysqli($db_host,$db_user,$db_password,$db_database);
     if (!$db)
@@ -42,7 +36,7 @@
   <link href="assets/css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection" />
   <link href="assets/css/index.css" type="text/css" rel="stylesheet" />
   <style media="screen">
-  
+
   </style>
 </head>
 <body>
@@ -113,7 +107,7 @@
                     ".$value['date']." ".$time;
                 if ($value['date'] > $nowDate)
                   echo "<a class='right waves-effect waves-light btn btn-cancel'>取消预约</a>";
-                elseif ($value['time'] > $flagHour && $value['date'] == $nowDate) {
+                elseif ($flagHour == 1 && $value['date'] == $nowDate) {
                   echo "<a class='right waves-effect waves-light btn btn-cancel'>取消预约</a>";
                 }
                 else {
@@ -152,11 +146,17 @@
                 {
                   $time = "20:00-21:00";
                 }
+
                 echo "<li id='".$value['id']."' class='collection-item'>
-                    ".$value['date']." ".$time."</li>
-                ";
+                    ".$value['date']." ".$time;
+                if ($value['come'] == "Y")
+                    echo "<a class='right'>按时锻炼</a>";
+                elseif ($value['come'] == "N") {
+                    echo "<a class='right' style='color:red;'>未按时赴约</a>";
+                echo "</li>";
               }
             }
+        }
            ?>
         <!--    <li id="1" /*此处id即为用户预约表中的id */class="collection-item">
                 10月11日 19:00~20:00

@@ -5,12 +5,20 @@
   include "assets/API/config.php";
   include "assets/API/db_config.php";
 
+  if (isset($_GET['checkDate']))
+    $checkDate = $_GET['checkDate'];
+  else
+    $checkDate = date("m月d日");
+
   $db = new mysqli($db_host,$db_user,$db_password,$db_database);
   if (!$db)
   {
     exit('Could not connect: ' . mysql_error());
   }
   $db->query("set names 'utf8'");
+
+  date_default_timezone_set('Asia/Shanghai');
+  $nowDate = date("m月d日");
 ?>
 
 <!DOCTYPE html>
@@ -69,6 +77,13 @@
     </header>
   <main>
   <div class="container">
+      <div id='notice0'>
+       <div class='card grey lighten-5 '>
+        <div class='card-content grey-text text-darken-4'>
+         <span class='card-title'>有问题联系qq:907886076</span>
+        </div>
+       </div>
+      </div>
       <!--<div class="row">
           <h5 class="grey-text darken-1">当前预约状况</h5>
       </div>-->
@@ -86,7 +101,7 @@
         <tbody>
           <tr>
             <?php
-              $sql_query = "SELECT * FROM `gym_reserve`";
+              $sql_query = "SELECT * FROM `gym_reserve` WHERE `date` = '".$checkDate."' order by `date`, `time`";
               $result = $db->query($sql_query);
             	foreach ($result as $row) {
             		$nid=$row['id'];
@@ -135,7 +150,8 @@
                 </ul>
 		    </div>
 		    <div class="col s2 offset-s2 grid-example">
-		        <a id="wantexcel" class="waves-effect waves-light btn"  onclick="funTestDown();">导出表格</a>
+                <a href="maybeexcel.php" class="waves-effect waves-light btn">导出表格</a>
+		    <!--    <a id="wantexcel" class="waves-effect waves-light btn"  onclick="funTestDown();">导出表格</a>-->
 		    </div>
 		</div>
   </div>
@@ -226,7 +242,7 @@
 		var xmlhttp;
 
 		try {
-			xmlhttp =  XMLHttpRequest();
+			xmlhttp = new  XMLHttpRequest();
 		}
 		catch (e) {
 			try {
@@ -251,8 +267,7 @@
         }
 		xmlhttp.open("GET",url,true);
 		xmlhttp.send(null);
-
-
+        window.location.href="adminform.php";
 	}
 </script>
 

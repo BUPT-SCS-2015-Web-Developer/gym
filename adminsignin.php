@@ -31,12 +31,12 @@
       $name = $value['name'];
       $date = $value['date'];
       $time = $value['time'];
-			$reserveTime = $value['reserveTime'];
+		$reserveTime = $value['reserveTime'];
   }
 
 //这里是记录取消预约和回复网薪的
-			$sql_query = "INSERT INTO `gym_data` (yibanID, schoolID, name, date, time, reserveTime, come, cancel)
-			VALUES ('$yibanID', '$schoolID', '$name', '$date', '$time', '$reserveTime', '$outcome', 'N' )";
+			$sql_query = "INSERT INTO `gym_data` (id, yibanID, schoolID, name, date, time, reserveTime, come, cancel)
+			VALUES ('$id', '$yibanID', '$schoolID', '$name', '$date', '$time', '$reserveTime', '$outcome', 'N' )";
 
 			$result = $db->query($sql_query);
 
